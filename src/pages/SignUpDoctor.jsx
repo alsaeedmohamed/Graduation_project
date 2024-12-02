@@ -73,7 +73,7 @@ function SignUpForm() {
         style={{ width: '660px' }}
       >
           <h1 className="text-4xl font-bold mb-6 text-black text-center	">Sign Up</h1>
-          <p className="text-base text-center mb-7 text-gray-600"> Begin your journey with just a few clicks</p>
+          <p className="text-base text-center mb-7 text-gray-600"> Sign Up For Doctor</p>
           <form>
             {/* First Name */}
             <div className="mb-4">
@@ -84,7 +84,7 @@ function SignUpForm() {
                 type="text"
                 placeholder="Enter your first name"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
-                required/>
+              />
             </div>
 
             {/* Last Name */}
@@ -92,11 +92,11 @@ function SignUpForm() {
               <label className="block font-medium text-gray-600 text-left">
                 Last Name<span className="text-[#FF4D4F]">*</span>
               </label>
-              <input
+              <input required
                 type="text"
                 placeholder="Enter your last name"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
-                required />
+              />
             </div>
 
             {/* Email */}
@@ -107,7 +107,7 @@ function SignUpForm() {
             >
                 Email<span className="text-[#FF4D4F]">*</span>
             </label>
-            <input
+            <input required
                 type="email"
                 id="email"
                 value={email}
@@ -116,7 +116,7 @@ function SignUpForm() {
                 className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 emailError ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]' : 'border-gray-300 focus:ring-[#0C7489]'
                 }`}
-                required />
+            />
             {emailError && (
                 <p className="text-[#FF4D4F] text-sm mt-1">Please input valid email. This email is invalid.</p>
             )}
@@ -128,7 +128,7 @@ function SignUpForm() {
                 Password<span className="text-[#FF4D4F]">*</span>
               </label>
               <div className="relative">
-                <input
+                <input required
                   type={showPassword ? 'text' : 'password'}    
                   value={password}
                   onChange={handlePasswordChange}
@@ -138,7 +138,7 @@ function SignUpForm() {
                       ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]'
                       : 'border-gray-300 focus:ring-[#0C7489]'
                   }`}
-                  required/>
+                />
                 {/*  eye icon */}
                 <div
                   className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -157,10 +157,10 @@ function SignUpForm() {
             <label className="block font-medium text-gray-600 text-left">
               Date of Birth<span className="text-[#FF4D4F]">*</span>
               </label>
-            <input
+            <input required
             type="date"
             placeholder="select date"
-              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 "  required />
+              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 "   />
             </div>
 
             {/* select your gender */}
@@ -181,7 +181,7 @@ function SignUpForm() {
               <label className="block font-medium text-gray-700 text-left">
                 Mobile Phone<span className="text-[#FF4D4F]">*</span>
               </label>
-              <PhoneInput
+              <PhoneInput  
                 country={"eg"} // Default country
                 value={phone}
                 onChange={(value) => setPhone(value)}
@@ -209,6 +209,26 @@ function SignUpForm() {
               <input required
               type="text"
               placeholder="Your Address"
+              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
+            </div>
+            {/* National ID */}
+            <div className="mb-4" >
+            <label className="block  font-medium text-gray-700 text-left  ">
+              National ID<span className="text-[#FF4D4F]">*</span>
+              </label>
+              <input
+              type="number"
+              placeholder="National ID"
+              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
+            </div>
+            {/* Academic Year */}
+            <div className="mb-4" >
+            <label className="block  font-medium text-gray-700 text-left  ">
+            Academic Year <span className="text-[#FF4D4F]">*</span>
+              </label>
+              <input required
+              type="number"
+              placeholder="Academic Year "
               className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
             </div>
             {/* Submit Button */}

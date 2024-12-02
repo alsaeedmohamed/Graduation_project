@@ -67,7 +67,7 @@ function SignInForm() {
                 className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 emailError ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]' : 'border-gray-300 focus:ring-[#0C7489]'
                 }`}
-            />
+                required/>
             {emailError && (
                 <p className="text-[#FF4D4F] text-sm mt-1">Please input valid email. This email is invalid.</p>
             )}
@@ -86,7 +86,7 @@ function SignInForm() {
                 id="password"
                 placeholder="Input password"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0C7489]"
-            />
+            required/>
             <div className="text-right mt-1">
             <Link to="/src/pages/Rest.jsx" className="text-[#0066D8] hover:underline">Forgot Password?</Link>
             </div>
