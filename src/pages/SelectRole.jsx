@@ -69,7 +69,7 @@ function RoleSelectionPage() {
               <input
                 type="radio"
                 name="role"
-                value="doctor"
+                value="patient"
                 className="mr-2"
                 onChange={handleRoleChange}
               />
@@ -84,7 +84,7 @@ function RoleSelectionPage() {
               <input
                 type="radio"
                 name="role"
-                value="doctor"
+                value="amenities"
                 className="mr-2"
                 onChange={handleRoleChange}
               />

@@ -63,19 +63,21 @@ function SignInForm() {
                 className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
                 emailError ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]' : 'border-gray-300 focus:ring-[#0C7489]'
                 }`}
-            />
+                required/>
             {emailError && (
                 <p className="text-[#FF4D4F] text-sm mt-1">Please input valid email. This email is invalid.</p>
             )}
             </div>
           {/* Login Button */}
             
-            <span  className="w-full bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300" 
-             style={{ width: '560px', height: '55px', paddingLeft:'270px',paddingRight:'265px' }}>  
-             <Link to="/src/pages/Verify.jsx">Continue</Link>
-             </span>
+            
 
-              
+          <Link
+            to="/src/pages/Verify.jsx"
+            className={"w-full block text-center bg-[#0C7489] text-white py-2 px-4 rounded"}
+          >
+            Continue
+          </Link>
             
         </form>
         </div>

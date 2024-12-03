@@ -89,17 +89,13 @@ function SignInForm() {
         </div>
 
         {/* Submit Button */}
-        {/* <button
-          onClick={handleSubmit}
-          className="w-full bg-[#0C7489] text-white font-bold py-2 rounded-lg hover:from-blue-600 hover:to-teal-500 transition"
-        >
-          Submit Code
-        </button> */}
-
-        {/* <Link   className=" w-full bg-[#0C7489] text-white font-bold py-2 rounded-lg hover:from-blue-600 hover:to-teal-500 transition"  style={{ width: '560px', height: '55px',padding:' 50px auto' }} to="/src/pages/RestPass.jsx">Submit Code</Link> */}
-
-        <span  className="w-full bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"  style={{ width: '560px', height: '55px', paddingLeft:'100px',paddingRight:'100px' }}>  <Link to="/src/pages/RestPass.jsx">Submit code</Link></span>
-
+        
+        <Link
+            to="/src/pages/RestPass.jsx"
+            className={"w-full block text-center bg-[#0C7489] text-white py-2 px-4 rounded"}
+          >
+            Submit code
+          </Link>
         {/* Footer */}
         <div className="text-center mt-4 text-sm text-gray-600">
           The verify code will expire in{" "}
