@@ -66,19 +66,20 @@ function SignInForm() {
                 required/>
             {emailError && (
                 <p className="text-[#FF4D4F] text-sm mt-1">Please input valid email. This email is invalid.</p>
-            )}
-            </div>
-          {/* Login Button */}
-            
-            
-
-          <Link
+            )}<br/>
+            {/* Login Button */}
+             <button
+              type="submit"
+              className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#0C7489] mt-17"
+            >
+              <Link
             to="/src/pages/Verify.jsx"
-            className={"w-full block text-center bg-[#0C7489] text-white py-2 px-4 rounded"}
+            
           >
             Continue
           </Link>
-            
+            </button>
+            </div>
         </form>
         </div>
     </div>
