@@ -1,49 +1,63 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
-import signup from '../images/signup.svg';
+import React, { useState } from "react";
+import signup from "../images/signup.svg";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import countryList from "react-select-country-list";
+import Select from "react-select";
 
 function SignUpForm() {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [phone, setPhone] = useState(''); 
-  const [password, setPassword] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(null);
 
+  // Prepare country list options
+  const countries = countryList().getData().map((country) => ({
+    value: country.value,
+    label: (
+      <div className="flex items-center">
+        <img
+          src={`https://flagcdn.com/w40/${country.value.toLowerCase()}.png`}
+          alt={country.label}
+          className="mr-2 w-5 h-4"
+        />
+        {country.label}
+      </div>
+    ),
+  }));
+
+  // Email validation
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
 
-    //  email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      setEmailError(true);
-    } else {
-      setEmailError(false);
-    }
+    setEmailError(!emailRegex.test(value));
   };
-  // eslint-disable-next-line no-unused-vars
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(`Email: ${email}, Phone: ${phone}`);
-    alert("Form submitted successfully!");
+
+  // Handle country selection change
+  const handleCountryChange = (selectedOption) => {
+    setSelectedCountry(selectedOption);
+    console.log("Selected Country:", selectedOption);
   };
+
   // Password validation
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    if (!passwordRegex.test(value)) {
-      setPasswordError(
-        'Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character.'
-      );
-    } else {
-      setPasswordError('');
-    }
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    setPasswordError(
+      !passwordRegex.test(value)
+        ? "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
+        : ""
+    );
   };
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -191,22 +205,25 @@ function SignUpForm() {
               />
             </div>
 
-            {/* country  */}
+            {/* Country Selection */}
             <div className="mb-4">
-              <label className="block font-medium text-gray-700 text-left  ">
-              your country<span className="text-[#FF4D4F]">*</span>
+              <label className="block font-medium text-gray-600 text-left">
+                Your Country<span className="text-[#FF4D4F]">*</span>
               </label>
-            <input required
-              type="text"
-              placeholder="Your Country"
-              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
+              <Select
+                options={countries}
+                value={selectedCountry}
+                onChange={handleCountryChange}
+                className="w-full   focus:ring-[#0C7489] text-gray-700  text-left"
+                placeholder="Select your country"
+              />
             </div>
-            {/* Submit Button */}
+            {/* address */}
             <div className="mb-4" >
             <label className="block  font-medium text-gray-700 text-left  ">
-              Address<span className="text-[#FF4D4F]">*</span>
+              Address
               </label>
-              <input required
+              <input
               type="text"
               placeholder="Your Address"
               className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />

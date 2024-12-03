@@ -118,7 +118,7 @@ function SignInForm() {
         {/* Sign Up Link */}
         <p className="text-gray-600 text-sm text-center mt-6">
             Do not have an account?{' '}
-            <Link to="/src/pages/SignUpForm.jsx" className="text-[#0066D8] hover:underline">Sign Up</Link>
+            <Link to="/src/pages/SelectRole.jsx" className="text-[#0066D8] hover:underline">Sign Up</Link>
         </p>
         </div>
     </div>

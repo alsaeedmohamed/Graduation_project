@@ -17,21 +17,21 @@ function Footer() {
                 alt="Neuro Guard Logo"
                 className="w-10 h-10 mr-2"
                 />
-                <span className="text-xl font-bold text-[#000000]">
+                <span className="text-xl font-bold text-gray-800">
                 Neuro Guard
                 </span>
             </div>
             <ul className="text-sm text-gray-600 space-y-2">
                 <li className="flex items-center">
-                <FaEnvelope className="mr-2 text-[#000000]" />
+                <FaEnvelope className="mr-2 text-gray-800" />
                 hello@neuroguard.com
                 </li>
                 <li className="flex items-center">
-                <FaPhoneAlt className="mr-2 text-[#000000]" />
+                <FaPhoneAlt className="mr-2  text-gray-800" />
                 +2 01015051219
                 </li>
                 <li className="flex items-center">
-                <FaMapMarkerAlt className="mr-2 text-[#000000]" />
+                <FaMapMarkerAlt className="mr-2  text-gray-800" />
                 Somewhere in the World
                 </li>
             </ul>
