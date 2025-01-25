@@ -18,7 +18,12 @@ const Header = () => {
         </div>
         <nav>
           <ul className="flex space-x-4">
-            <li><Link to="/" className="text-gray-600 hover:text-[#0C7489]">Home</Link></li>
+            <li><Link to="/src/pages/HomePatient.jsx" onClick={() => handleButtonClick("home")}
+            className={`px-4 py-2 rounded transition duration-200 ${
+              activeButton === "home"
+                ? "bg-[#095b6a] text-white"
+                : "text-gray-800 ]"
+            }`}>Home</Link></li>
             <li><Link to="/services" className="text-gray-600 hover:text-[#0C7489]">Services</Link></li>
             <li><Link to="/doctors" className="text-gray-600 hover:text-[#0C7489]">Find Doctors</Link></li>
             <li><Link to="/about" className="text-gray-600 hover:text-[#0C7489]">About Us</Link></li>
@@ -27,7 +32,7 @@ const Header = () => {
         </nav>
         <div>
           <Link
-            to="/src/pages/SelectRole.jsx"
+            to="/src/pages/SignUpForm.jsx"
             onClick={() => handleButtonClick("signup")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "signup"

@@ -5,13 +5,13 @@ import Footer from './components/Footer'
 import SignUpForm from './pages/SignUpForm'
 import SignInForm from './pages/SignInForm'
 import Rest from './pages/Rest'
-import SelectRole from './pages/SelectRole'
 import Verify from './pages/Verify'
 import RestPass from './pages/RestPass'
-import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUpDoctor from './pages/SignUpDoctor'
+import HomePatient from './pages/HomePatient'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 function App() {
-  
+
   return (
 <Router>
       <div  className="bg-[#f6fbfc] min-h-screen" >
@@ -23,14 +23,12 @@ function App() {
             <Route path="/src/pages/Rest.jsx" element={<Rest/>} />
             <Route path="/src/pages/Verify.jsx" element={<Verify/>} />
             <Route path="/src/pages/RestPass.jsx" element={<RestPass/>} />
-            <Route path="/src/pages/SelectRole.jsx" element={<SelectRole/>} />
-            <Route path="/src/pages/SignUpDoctor.jsx" element={<SignUpDoctor/>} />
+            <Route path="/src/pages/HomePatient.jsx" element={<HomePatient/>} />
           </Routes>
         </main>
         <Footer />
       </div>
     </Router>
-    
   );
 }
 
