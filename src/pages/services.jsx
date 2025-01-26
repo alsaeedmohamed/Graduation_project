@@ -4,15 +4,17 @@ import profile from '../images/profile.svg';
 import ring from '../images/ring.svg';
 import search from '../images/search.svg';
 import settings from '../images/settings.svg';
-import doctor from '../images/doctor.svg';
 import moon from '../images/moon.svg';
 import about from '../images/about.svg';
 import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
+import setting1 from '../images/setting1.svg';
+import setting2 from '../images/setting2.svg';
+import setting3 from '../images/setting3.svg';
 import{ useState } from 'react';
 
-function HomePatient() {
+function Services() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
 
@@ -176,21 +178,41 @@ function HomePatient() {
             />
           </div>
           </div>
-          <div className="min-h-screen flex flex-col md:flex-row">
-            {/* Left Section - Image */}
-      <div className="flex-1  flex items-center justify-center">
-        <div className="text-center px-4">
-          {/* Image */}
-          <h3 className=" font-poppins font-bold text-[80px] leading-[96px] text-left ml-[20px]">
-          Stroke<br/><span className="text-[#0c7489] font-poppins font-bold text-[80px] leading-[96px] text-left">Prediction.</span> </h3>
-          <p className="font-poppins text-[#1E1E1E]  text-[20px] leading-[34px] text-left ml-[20px] mt-[15px]" >Answer a few quick questions to help us assess your risk of stroke and connect with top neurology specialists for expert guidance.</p>
-        </div>
-        </div>
-        {/* Right Section - Form */}
-        <div className="flex items-center justify-center min-h-screen  ">
-        <img src={doctor} alt="" />
-    </div>
+          
+    <div className=" min-h-screen flex flex-col items-center justify-start py-10">
+      {/* Header Text */}
+      <h1 className="text-2xl font-bold text-center  leading-[57px] mb-10">
+        Start your journey by choosing a category that aligns with your goals
+      </h1>
+
+      {/* Boxes */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {/* Box 1 */}
+        <div className="bg-blue-100 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
+          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
+            {/* Placeholder for image */}
+            <div className=" w-full  h-4/5"><img src={setting1} alt="" /></div>
           </div>
+        </div>
+
+        {/* Box 2 */}
+        <div className="bg-blue-100 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
+          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
+            {/* Placeholder for image */}
+            <div className=" w-full  h-4/5"><img src={setting2} alt="" /></div>
+          </div>
+        </div>
+
+        {/* Box 3 */}
+        <div className="bg-blue-100 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
+          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
+            {/* Placeholder for image */}
+            <div className=" w-full  h-4/5"><img src={setting3} alt="" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
          
           </div>
           
@@ -200,4 +222,4 @@ function HomePatient() {
       );
 }
 
-export default HomePatient;
+export default Services;

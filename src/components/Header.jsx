@@ -24,7 +24,13 @@ const Header = () => {
                 ? "bg-[#095b6a] text-white"
                 : "text-gray-800 ]"
             }`}>Home</Link></li>
-            <li><Link to="/services" className="text-gray-600 hover:text-[#0C7489]">Services</Link></li>
+            <li><Link to="/src/pages/services.jsx" onClick={() => handleButtonClick("services")}
+            className={`px-4 py-2 rounded transition duration-200 ${
+              activeButton === "services"
+                ? "bg-[#095b6a] text-white"
+                : "text-gray-800 ]"
+            }`}>Services</Link></li>
+            {/* <li><Link to="/services" className="text-gray-600 hover:text-[#0C7489]">Services</Link></li> */}
             <li><Link to="/doctors" className="text-gray-600 hover:text-[#0C7489]">Find Doctors</Link></li>
             <li><Link to="/about" className="text-gray-600 hover:text-[#0C7489]">About Us</Link></li>
             <li><Link to="/contact" className="text-gray-600 hover:text-[#0C7489]">Contact Us</Link></li>

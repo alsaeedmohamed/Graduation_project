@@ -8,6 +8,7 @@ import Rest from './pages/Rest'
 import Verify from './pages/Verify'
 import RestPass from './pages/RestPass'
 import HomePatient from './pages/HomePatient'
+import Services from './pages/services'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/src/pages/Verify.jsx" element={<Verify/>} />
             <Route path="/src/pages/RestPass.jsx" element={<RestPass/>} />
             <Route path="/src/pages/HomePatient.jsx" element={<HomePatient/>} />
+            <Route path="/src/pages/services.jsx" element={<Services/>} />
           </Routes>
         </main>
         <Footer />
