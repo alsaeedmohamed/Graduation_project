@@ -188,7 +188,7 @@ function Services() {
       {/* Boxes */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         {/* Box 1 */}
-        <div className="bg-blue-100 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
+        <div className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105  border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
           <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
             {/* Placeholder for image */}
             <div className=" w-full  h-4/5"><img src={setting1} alt="" /></div>
@@ -196,7 +196,7 @@ function Services() {
         </div>
 
         {/* Box 2 */}
-        <div className="bg-blue-100 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
+        <div className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105  border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
           <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
             {/* Placeholder for image */}
             <div className=" w-full  h-4/5"><img src={setting2} alt="" /></div>
@@ -204,10 +204,10 @@ function Services() {
         </div>
 
         {/* Box 3 */}
-        <div className="bg-blue-100 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
+        <div className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
           <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
             {/* Placeholder for image */}
-            <div className=" w-full  h-4/5"><img src={setting3} alt="" /></div>
+            <div className=" w-full  h-4/5 "><img src={setting3} alt="" /></div>
           </div>
         </div>
       </div>
