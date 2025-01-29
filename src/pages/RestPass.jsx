@@ -1,9 +1,11 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React from "react";
 import restpass from '../images/restpass.svg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import{ useState } from 'react';
+import {  useNavigate } from "react-router-dom";
 const SignInForm = () => {
+  const navigate =useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
@@ -12,6 +14,33 @@ const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Added state for confirm password visibility
   const [success, setSuccess] = useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // تأكدي هنا إن الفورم صحيح قبل التنقل
+    if (
+      password && // كلمة المرور مش فاضية
+      !passwordError && // لا يوجد خطأ في كلمة المرور
+      confirmPassword && // تأكيد كلمة المرور مش فاضي
+      password === confirmPassword // كلمة المرور وتأكيدها متطابقان
+    
+      
+    ) {
+        
+      navigate("/src/pages/SignInForm.jsx");
+      
+      
+    }
+    if (password !== confirmPassword) {
+      setPasswordMatchError("Passwords do not match!");
+      setError('');
+      setSuccess('');
+    } else {
+      setPasswordMatchError('');
+      updatePassword(password); // Simulate password update
+    }
+    
+  };
 
   // eslint-disable-next-line no-unused-vars
   const updatePassword = (password) => {
@@ -22,19 +51,7 @@ const SignInForm = () => {
     }, 1000); // Simulate server delay
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Check if passwords match
-    if (password !== confirmPassword) {
-      setPasswordMatchError("Passwords do not match!");
-      setError('');
-      setSuccess('');
-    } else {
-      setPasswordMatchError('');
-      updatePassword(password); // Simulate password update
-    }
-  };
+ 
 
   // Password validation
   const handlePasswordChange = (e) => {
@@ -132,7 +149,7 @@ const SignInForm = () => {
             {passwordMatchError && <p className="text-red-500 text-sm mb-4">{passwordMatchError}</p>}
             {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
 
-            <button
+            <button 
               type="submit"
               className="w-full bg-[#0c7489] text-white py-2 px-4 rounded-md hover:bg-[#0b6779] transition duration-200"
             >

@@ -3,8 +3,25 @@ import React, { useState } from 'react';
 import signin from '../images/signin.svg'
 import { FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import {  useNavigate } from "react-router-dom";
 
 function SignInForm() {
+  const navigate =useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // تأكدي هنا إن الفورم صحيح قبل التنقل
+    if (
+      email && // لازم الإيميل يكون مدخل
+      !emailError // الإيميل لازم يكون صحيح
+      
+    ) {
+        
+      navigate("/src/pages/Homepatient.jsx");
+      
+      
+    }
+  };
     const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
 
@@ -49,7 +66,7 @@ function SignInForm() {
         >
         <h2 className="text-4xl font-bold mb-6 text-black text-center	">Sign In</h2>
         <p className="text-center text-gray-600 mb-6">Your learning awaits. Log In now!</p>
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* Email Field */}
             <div className="mb-4">
             <label
@@ -91,7 +108,7 @@ function SignInForm() {
             <Link to="/src/pages/Rest.jsx" className="text-[#0066D8] hover:underline">Forgot Password?</Link>
             </div>
             </div>
-
+           
           {/* Login Button */}
             <button
             type="submit"
@@ -113,6 +130,7 @@ function SignInForm() {
             <FaGoogle className="mr-2 text-[#000000]" />
             Continue with Google
             </button>
+           
         </form>
 
         {/* Sign Up Link */}

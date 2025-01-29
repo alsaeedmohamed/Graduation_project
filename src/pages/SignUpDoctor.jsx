@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 
-function SignUpForm() {
+function SignUpDoctor() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState("");
@@ -262,4 +262,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SignUpDoctor;

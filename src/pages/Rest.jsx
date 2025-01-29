@@ -2,9 +2,27 @@
 import React from "react";
 import forgetPassword from '../images/forgetPassword.svg';
 import{ useState } from 'react';
-import { Link } from 'react-router-dom';
+import {  useNavigate } from "react-router-dom";
 
 function SignInForm() {
+  
+    const navigate =useNavigate();
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      
+      // تأكدي هنا إن الفورم صحيح قبل التنقل
+      if (
+        email && // لازم الإيميل يكون مدخل
+        !emailError // الإيميل لازم يكون صحيح
+        
+      ) {
+          
+        navigate("/src/pages/Verify.jsx");
+        
+        
+      }
+    };
+      
     const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(false);
 
@@ -45,7 +63,7 @@ function SignInForm() {
         >
         <h1 className="text-4xl font-bold mb-6 text-black text-center	">forget Password</h1>
         <p className="text-center text-gray-600 mb-6">Lorem ipsum dolor sit amet consectetur. Sed nulla tellus</p>
-        <form>
+        <form onSubmit={handleSubmit}>
           {/* Email Field */}
             <div className="mb-4">
             <label
@@ -72,12 +90,9 @@ function SignInForm() {
               type="submit"
               className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#0C7489] mt-17"
             >
-              <Link
-            to="/src/pages/Verify.jsx"
-            
-          >
+              
             Continue
-          </Link>
+         
             </button>
             </div>
         </form>

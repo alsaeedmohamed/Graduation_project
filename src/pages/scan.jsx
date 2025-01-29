@@ -11,7 +11,6 @@ import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 import{ useState } from 'react';
 import {  useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 const Scan = ({ setUploadedImage }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
@@ -221,7 +220,7 @@ const Scan = ({ setUploadedImage }) => {
       {/* Scan Button */}
       <button
         onClick={handleScan}
-        className="bg-[#0c7489] text-white w-[780px] h-[72px] mt-6 py-2 rounded"
+        className="bg-[#0c7489] font-bold  text-white w-[780px] h-[72px] mt-6 py-2 rounded"
         disabled={!selectedFile}
       >
         Scan

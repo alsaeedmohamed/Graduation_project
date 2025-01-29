@@ -3,9 +3,25 @@ import React from "react";
 import verify from '../images/verify.svg';
 import{ useState } from 'react';
 import { useEffect } from "react";
-import { Link } from 'react-router-dom';
+import {  useNavigate } from "react-router-dom";
 
 function SignInForm() {
+  const navigate =useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // تأكدي هنا إن الفورم صحيح قبل التنقل
+    if (inputs.every((input) => input !== "")) {
+      navigate("/src/pages/RestPass.jsx");
+    } 
+   
+    const code = inputs.join("");
+      if (code.length === 4) {
+        alert(`Your code is: ${code}`);
+      } else {
+        alert("Please enter all 4 digits of the code.");
+      }
+  };
     const [inputs, setInputs] = useState(["", "", "", ""]);
     const [timeLeft, setTimeLeft] = useState(60);
     const [isResendDisabled, setIsResendDisabled] = useState(true);
@@ -40,14 +56,14 @@ function SignInForm() {
     };
   
     // Handle Submit
-    const handleSubmit = () => {
-      const code = inputs.join("");
-      if (code.length === 4) {
-        alert(`Your code is: ${code}`);
-      } else {
-        alert("Please enter all 4 digits of the code.");
-      }
-    };
+    // const handleSubmit = () => {
+    //   const code = inputs.join("");
+    //   if (code.length === 4) {
+    //     alert(`Your code is: ${code}`);
+    //   } else {
+    //     alert("Please enter all 4 digits of the code.");
+    //   }
+    // };
   
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -75,6 +91,8 @@ function SignInForm() {
         </p>
 
         {/* Input Boxes */}
+        <form onSubmit={handleSubmit}>
+
         <div className="flex justify-center gap-4 mb-6">
           {inputs.map((input, index) => (
             <input
@@ -89,18 +107,15 @@ function SignInForm() {
         </div>
 
         {/* Submit Button */}
-        <button
+        <button 
               type="submit"
               className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#0C7489] mt-17"
             >
-              <Link
-            to="/src/pages/RestPass.jsx"
-            
-          >
+              
             Submit code
-          </Link>
+         
             </button>
-    
+            </form>
         {/* Footer */}
         <div className="text-center mt-4 text-sm text-gray-600">
           The verify code will expire in{" "}

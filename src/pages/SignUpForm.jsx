@@ -6,8 +6,29 @@ import "react-phone-input-2/lib/style.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import countryList from "react-select-country-list";
 import Select from "react-select";
+import {  useNavigate } from "react-router-dom";
 
 function SignUpForm() {
+  const navigate =useNavigate();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // تأكدي هنا إن الفورم صحيح قبل التنقل
+    if (
+      email && // لازم الإيميل يكون مدخل
+      !emailError && // الإيميل لازم يكون صحيح
+      phone && // لازم رقم الهاتف يكون مدخل
+      password && // لازم كلمة المرور تكون مدخلة
+      !passwordError && // كلمة المرور لازم تكون صحيحة
+      selectedCountry // لازم المستخدم يختار دولة
+    ) {
+        
+      navigate("/src/pages/Homepatient.jsx");
+      
+      
+    }
+  };
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState("");
@@ -88,7 +109,7 @@ function SignUpForm() {
       >
           <h1 className="text-4xl font-bold mb-6 text-black text-center	">Sign Up</h1>
           <p className="text-base text-center mb-7 text-gray-600"> Begin your journey with just a few clicks</p>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* First Name */}
             <div className="mb-4">
               <label className="block font-medium text-gray-600 text-left">
@@ -231,6 +252,7 @@ function SignUpForm() {
               className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
             </div>
             {/* Submit Button */}
+           
             <button
               type="submit"
               className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#0C7489]"

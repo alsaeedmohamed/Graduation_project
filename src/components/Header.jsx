@@ -38,7 +38,7 @@ const Header = () => {
         </nav>
         <div>
           <Link
-            to="/src/pages/SignUpForm.jsx"
+            to="/src/pages/SelectRole.jsx"
             onClick={() => handleButtonClick("signup")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "signup"
