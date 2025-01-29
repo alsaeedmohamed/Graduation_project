@@ -215,7 +215,7 @@ const Scan = ({ setUploadedImage }) => {
         type="file"
         accept="image/*"
         onChange={handleFileChange}
-        className="w-[780px] h-[72px] border-[1.4px] border-[#0c7489] mt-4 rounded px-4"
+        className="w-[780px] h-[72px] border-[1.4px] border-[#0c7489] mt-4 rounded px-4 p-5 "
       />
 
       {/* Scan Button */}

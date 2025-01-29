@@ -213,7 +213,7 @@ const Scanning = ({ uploadedImage }) =>{
       </div>
 
       {/* Scanning Text */}
-      <p className="mt-6 text-[#0c7489] text-lg font-jost font-medium text-[64px] leading-[64px] text-center">Scanning...</p>
+      <p className="mt-6 text-[#0c7489] text-lg  font-medium text-[70px] leading-[64px] text-center">Scanning...</p>
     </div>
           </div>
           
