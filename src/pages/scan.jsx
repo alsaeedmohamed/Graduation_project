@@ -9,32 +9,45 @@ import about from '../images/about.svg';
 import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
-import setting1 from '../images/setting1.svg';
-import setting2 from '../images/setting2.svg';
-import setting3 from '../images/setting3.svg';
 import{ useState } from 'react';
 import {  useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+const Scan = ({ setUploadedImage }) => {
+    const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
+  
+    // فتح أو إغلاق قائمة الإعدادات
+    const toggleSettings = () => {
+      setIsSettingsOpen(!isSettingsOpen);
+    };
+    const toggleNotfications = () => {
+      setIsNotficationsOpen(!isNotficationsOpen);
+    };
+    const [isDarkMode, setIsDarkMode] = useState(false);
+  
+    // تبديل وضع الـ Dark Mode
+    const toggleDarkMode = () => {
+      setIsDarkMode(!isDarkMode);
+    };
+    const [selectedFile, setSelectedFile] = useState(null);
+  const navigate = useNavigate();
 
-function Services() {
-  const navigate =useNavigate();
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
-
-  // فتح أو إغلاق قائمة الإعدادات
-  const toggleSettings = () => {
-    setIsSettingsOpen(!isSettingsOpen);
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedFile(imageUrl);
+      setUploadedImage(imageUrl);
+    }
   };
-  const toggleNotfications = () => {
-    setIsNotficationsOpen(!isNotficationsOpen);
-  };
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // تبديل وضع الـ Dark Mode
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
+  const handleScan = () => {
+    if (selectedFile) {
+      navigate("/src/pages/scaning.jsx");
+    }
   };
     return (
-        <div>
+<div>
         <div className="flex items-center justify-between px-4 bg-white  h-[110px]">
           {/* Logo */}
           <h1 className="text-[#0c7489] font-poppins font-normal text-[25px] leading-[37.5px]">Protect your mind, smarty</h1>
@@ -82,7 +95,6 @@ function Services() {
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
         <h1 className="text-center text-lg font-bold">Settings</h1>
-
         {/* Interface */}
         <div>
           <span className="text-sm font-bold block mb-2 text-left">Interface</span>
@@ -164,11 +176,7 @@ function Services() {
         {/* عنوان الإعدادات */}
         <img src={nonotification} alt=""  className="p-10"/>
         {/* <h1 className="text-center text-lg font-bold">Settings</h1> */}
-
-        
-
-       
-      </div>
+        </div>
                 </div>
               </div>
             </>
@@ -181,48 +189,46 @@ function Services() {
           </div>
           </div>
           
-    <div className=" min-h-screen flex flex-col items-center justify-start py-10">
-      {/* Header Text */}
-      <h1 className="text-2xl font-bold text-center  leading-[57px] mb-10">
-        Start your journey by choosing a category that aligns with your goals
-      </h1>
 
-      {/* Boxes */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {/* Box 1 */}
-        <div onClick={() => navigate("/src/pages/scan.jsx")} className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105  border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
-          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
-            {/* Placeholder for image */}
-            <div className=" w-full cursor-pointer h-4/5">        
-            <img className="p-5" src={setting1} alt="" />        
-            </div>
-          </div>
-        </div>
-        {/* Box 2 */}
-        <div onClick={() => navigate("/src/pages/predict.jsx")} className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105  border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
-          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
-            {/* Placeholder for image */}
-            <div className=" w-full cursor-pointer  h-4/5"><img className="p-5" src={setting2} alt="" /></div>
-          </div>
-        </div>
+      {/* File Input */}
+      
 
-        {/* Box 3 */}
-        <div onClick={() => navigate("/src/pages/chatbot.jsx")} className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
-          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
-            {/* Placeholder for image */}
-            <div className=" w-full  h-4/5 cursor-pointer"><img className="p-5" src={setting3} alt="" /></div>
-          </div>
-        </div>
+      {/* Scan Button */}
+      
+    {/* </div> */} 
+    <div className="flex flex-col items-center p-4">
+      {/* Drag and Drop Box */}
+      <div className="w-[780px] h-[440px] border-2 border-dotted border-[#0c7489] rounded-[24px] flex justify-center items-center text-gray-500">
+        {selectedFile ? (
+          <img
+            src={selectedFile}
+            alt="Preview"
+            className="w-full h-full object-contain"
+          />
+        ) : (
+          <p>Drag & Drop or select files from device</p>
+        )}
       </div>
-    </div>
-  
-         
-          </div>
-          
-         
-       
-    
-      );
-}
 
-export default Services;
+      {/* File Input */}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleFileChange}
+        className="w-[780px] h-[72px] border-[1.4px] border-[#0c7489] mt-4 rounded px-4"
+      />
+
+      {/* Scan Button */}
+      <button
+        onClick={handleScan}
+        className="bg-[#0c7489] text-white w-[780px] h-[72px] mt-6 py-2 rounded"
+        disabled={!selectedFile}
+      >
+        Scan
+      </button>
+    </div>
+          </div>
+    );
+  };
+  
+  export default Scan;

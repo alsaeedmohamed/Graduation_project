@@ -9,14 +9,28 @@ import about from '../images/about.svg';
 import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
-import setting1 from '../images/setting1.svg';
-import setting2 from '../images/setting2.svg';
-import setting3 from '../images/setting3.svg';
-import{ useState } from 'react';
+import{useEffect, useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 
-function Services() {
-  const navigate =useNavigate();
+import PropTypes from "prop-types";
+
+const Scanning = ({ uploadedImage }) =>{
+    const [scanningLine, setScanningLine] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!uploadedImage) {
+      navigate("/"); // لو مفيش صورة، يرجع المستخدم للصفحة الرئيسية.
+    }
+  }, [uploadedImage, navigate]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setScanningLine((prev) => (prev >= 100 ? 0 : prev + 1));
+    }, 50);
+    return () => clearInterval(interval);
+  }, []);
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
 
@@ -79,7 +93,7 @@ function Services() {
                   {/* السهم العلوي */}
                   
                   <div className="absolute -top-4 right-5 w-8 h-8 bg-white transform rotate-45  border-l-[2px] border-t-[2px] border-[#0c7489]"></div>
-                  <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
+                  <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]  z-12">
         {/* عنوان الإعدادات */}
         <h1 className="text-center text-lg font-bold">Settings</h1>
 
@@ -181,42 +195,26 @@ function Services() {
           </div>
           </div>
           
-    <div className=" min-h-screen flex flex-col items-center justify-start py-10">
-      {/* Header Text */}
-      <h1 className="text-2xl font-bold text-center  leading-[57px] mb-10">
-        Start your journey by choosing a category that aligns with your goals
-      </h1>
-
-      {/* Boxes */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {/* Box 1 */}
-        <div onClick={() => navigate("/src/pages/scan.jsx")} className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105  border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
-          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
-            {/* Placeholder for image */}
-            <div className=" w-full cursor-pointer h-4/5">        
-            <img className="p-5" src={setting1} alt="" />        
-            </div>
-          </div>
-        </div>
-        {/* Box 2 */}
-        <div onClick={() => navigate("/src/pages/predict.jsx")} className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105  border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
-          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
-            {/* Placeholder for image */}
-            <div className=" w-full cursor-pointer  h-4/5"><img className="p-5" src={setting2} alt="" /></div>
-          </div>
-        </div>
-
-        {/* Box 3 */}
-        <div onClick={() => navigate("/src/pages/chatbot.jsx")} className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center">
-          <div className="w-full bg-white  rounded-md h-full flex items-center justify-center">
-            {/* Placeholder for image */}
-            <div className=" w-full  h-4/5 cursor-pointer"><img className="p-5" src={setting3} alt="" /></div>
-          </div>
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-[#f8fcfc]">
+      {/* Image Container */}
+      <div className="relative w-[400px] h-[400px] bg-[#0c7489] rounded-md overflow-hidden">
+        {uploadedImage && (
+          <img
+            src={uploadedImage}
+            alt="Uploaded"
+            className="w-full h-full object-cover opacity-70"
+          />
+        )}
+        {/* Scanning Line */}
+        <div
+          className="absolute top-0 left-0 w-full h-[2px] bg-white"
+          style={{ top:` ${scanningLine}%` }}
+        />
       </div>
+
+      {/* Scanning Text */}
+      <p className="mt-6 text-[#0c7489] text-lg font-jost font-medium text-[64px] leading-[64px] text-center">Scanning...</p>
     </div>
-  
-         
           </div>
           
          
@@ -225,4 +223,7 @@ function Services() {
       );
 }
 
-export default Services;
+export default Scanning;
+Scanning.PropTypes ={
+    uploadedImage : PropTypes.string,
+};
