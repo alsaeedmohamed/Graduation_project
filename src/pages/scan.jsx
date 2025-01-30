@@ -11,6 +11,7 @@ import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 import{ useState } from 'react';
 import {  useNavigate } from "react-router-dom";
+// eslint-disable-next-line react/prop-types
 const Scan = ({ setUploadedImage }) => {
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
     const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
