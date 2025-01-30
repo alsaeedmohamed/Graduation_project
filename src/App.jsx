@@ -15,6 +15,9 @@ import RoleSelectionPage from './pages/SelectRole'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpDoctor from './pages/SignUpDoctor'
 import ChatBotPage from './pages/ChatBotPage';
+import Prediction from './pages/predict'
+import HighRisk from './pages/highrisk'
+import LowRisk from './pages/lowrisk'
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -34,7 +37,9 @@ function App() {
             <Route path="/src/pages/SelectRole.jsx" element={<RoleSelectionPage/>} />
             <Route path="/src/pages/SignUpDoctor.jsx" element={<SignUpDoctor/>} />
             <Route path="/src/pages/ChatBotPage.jsx" element={<ChatBotPage />} />
-
+            <Route path="/src/pages/predict.jsx" element={<Prediction />} />
+            <Route path="/src/pages/highrisk.jsx" element={<HighRisk />} />
+            <Route path="/src/pages/lowrisk.jsx" element={<LowRisk />} />
             <Route
           path="/src/pages/scan.jsx"
           element={<Scan setUploadedImage={setUploadedImage} />}
