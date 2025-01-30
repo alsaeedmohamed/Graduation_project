@@ -220,7 +220,7 @@ const Scan = ({ setUploadedImage }) => {
       {/* Scan Button */}
       <button
         onClick={handleScan}
-        className="bg-[#0c7489] font-bold  text-white w-[780px] h-[72px] mt-6 py-2 rounded"
+        className="bg-[#0c7489] font-medium  text-white w-[780px] h-[72px] mt-6 py-2 rounded"
         disabled={!selectedFile}
       >
         Scan
