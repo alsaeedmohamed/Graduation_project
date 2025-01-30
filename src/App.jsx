@@ -14,6 +14,7 @@ import Scanning from './pages/scaning'
 import RoleSelectionPage from './pages/SelectRole'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpDoctor from './pages/SignUpDoctor'
+import ChatBotPage from './pages/ChatBotPage';
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/src/pages/services.jsx" element={<Services/>} />
             <Route path="/src/pages/SelectRole.jsx" element={<RoleSelectionPage/>} />
             <Route path="/src/pages/SignUpDoctor.jsx" element={<SignUpDoctor/>} />
+            <Route path="/src/pages/ChatBotPage.jsx" element={<ChatBotPage />} />
 
             <Route
           path="/src/pages/scan.jsx"
