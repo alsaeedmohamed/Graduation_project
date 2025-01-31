@@ -13,11 +13,17 @@ import Scan from './pages/scan'
 import Scanning from './pages/scaning'
 import RoleSelectionPage from './pages/SelectRole'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import SignUpDoctor from './pages/SignUpDoctor'
+import SignUpDoctor from './pages/SignUpDoctor';
 import ChatBotPage from './pages/ChatBotPage';
 import Prediction from './pages/predict'
 import HighRisk from './pages/highrisk'
 import LowRisk from './pages/lowrisk'
+import FindDoctors from './pages/findDoctors'
+import Drinfo from './pages/drinfo'
+import PaymentPage from './pages/paymentpage'
+import AddCardPage from './pages/addcardpage'
+import Appointment from './pages/appointment'
+import Contact from './pages/contactUs'
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -40,6 +46,13 @@ function App() {
             <Route path="/src/pages/predict.jsx" element={<Prediction />} />
             <Route path="/src/pages/highrisk.jsx" element={<HighRisk />} />
             <Route path="/src/pages/lowrisk.jsx" element={<LowRisk />} />
+            <Route path="/src/pages/findDoctors.jsx" element={<FindDoctors />} />
+            <Route path="/src/pages/drinfo.jsx" element={<Drinfo />} />
+            <Route path="/src/pages/paymentpage.jsx" element={<PaymentPage />} />
+            <Route path="/src/pages/addcardpage.jsx" element={<AddCardPage />} />
+            <Route path="/src/pages/appointment.jsx" element={<Appointment />} />
+            <Route path="/src/pages/contactUs.jsx" element={<Contact />} />
+
             <Route
           path="/src/pages/scan.jsx"
           element={<Scan setUploadedImage={setUploadedImage} />}

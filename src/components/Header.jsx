@@ -30,10 +30,21 @@ const Header = () => {
                 ? "bg-[#095b6a] text-white"
                 : "text-gray-800 ]"
             }`}>Services</Link></li>
-            {/* <li><Link to="/services" className="text-gray-600 hover:text-[#0C7489]">Services</Link></li> */}
-            <li><Link to="/doctors" className="text-gray-600 hover:text-[#0C7489]">Find Doctors</Link></li>
+            
+            <li><Link to="/src/pages/findDoctors.jsx" onClick={() => handleButtonClick("findDoctors")}
+            className={`px-4 py-2 rounded transition duration-200 ${
+              activeButton === "findDoctors"
+                ? "bg-[#095b6a] text-white"
+                : "text-gray-800 ]"
+            }`}>Find Doctors</Link></li>
             <li><Link to="/about" className="text-gray-600 hover:text-[#0C7489]">About Us</Link></li>
-            <li><Link to="/contact" className="text-gray-600 hover:text-[#0C7489]">Contact Us</Link></li>
+            {/* <li><Link to="/contact" className="text-gray-600 hover:text-[#0C7489]">Contact Us</Link></li> */}
+            <li><Link to="/src/pages/contactUs.jsx" onClick={() => handleButtonClick("contact")}
+            className={`px-4 py-2 rounded transition duration-200 ${
+              activeButton === "contact"
+                ? "bg-[#095b6a] text-white"
+                : "text-gray-800 ]"
+            }`}>Contact Us</Link></li>
           </ul>
         </nav>
         <div>
