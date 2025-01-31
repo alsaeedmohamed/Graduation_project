@@ -24,6 +24,7 @@ import PaymentPage from './pages/paymentpage'
 import AddCardPage from './pages/addcardpage'
 import Appointment from './pages/appointment'
 import Contact from './pages/contactUs'
+import AboutUs from './pages/aboutUs'
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -52,6 +53,7 @@ function App() {
             <Route path="/src/pages/addcardpage.jsx" element={<AddCardPage />} />
             <Route path="/src/pages/appointment.jsx" element={<Appointment />} />
             <Route path="/src/pages/contactUs.jsx" element={<Contact />} />
+            <Route path="/src/pages/aboutUs.jsx" element={<AboutUs />} />
 
             <Route
           path="/src/pages/scan.jsx"

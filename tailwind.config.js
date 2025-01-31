@@ -8,6 +8,10 @@ export default {
     extend: {
       fontFamily :{
         poppins:["poppins","sans-serif"]
+      },
+      borderRadius:{
+        'tl-13':'13px',
+        'br-24':'24px',
       }
     },
   },
