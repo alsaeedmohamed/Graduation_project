@@ -4,7 +4,7 @@ import profile from '../images/profile.svg';
 import ring from '../images/ring.svg';
 import search from '../images/search.svg';
 import settings from '../images/settings.svg';
-import Doctor from '../images/doctor2.svg';
+import patient from '../images/patient1.svg';
 import moon from '../images/moon.svg';
 import about from '../images/about.svg';
 import account from '../images/account.svg';
@@ -12,7 +12,7 @@ import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 import{ useState } from 'react';
 import { useNavigate } from "react-router-dom";
-function Drinfo() {
+function PatientDetails() {
     const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ function Drinfo() {
   const dates = ["Sun 4", "Mon 5", "Tue 6"];
 
   const handleNavigate = () => {
-    navigate("/src/pages/paymentpage.jsx"); // استبدلي "/confirmation" بالمسار المطلوب
+    navigate("/src/pages/patientReport.jsx"); // استبدلي "/confirmation" بالمسار المطلوب
   };
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
@@ -186,30 +186,24 @@ function Drinfo() {
         {/* صورة الطبيب */}
         <div className=" flex justify-center">
           <img
-            src={Doctor} // 
-            alt="Dr. Alaa"
+            src={patient} // 
+            alt=" Alaa"
             className="w-1/3 w-full rounded-lg object-cover"
           />
         </div>
 
         {/* بيانات الطبيب */}
         <div className="w-2/3 pl-6 font-poppins mt-5">
-          <h2 className="text-2xl font-bold text-gray-800 text-left">Dr. Alaa</h2>
+          <h2 className="text-2xl font-bold text-gray-800 text-left">Mohamed Ahmed </h2>
 
           {/* الدفع */}
           <div className="flex items-center mt-2">
             <span className="text-[#0C7489] text-lg font-bold mr-6 text-left">
-              Payment
+              patient
             </span>
-            <span className="text-[#0C7489] text-lg font-bold  ml-auto">$120.00</span>
           </div>
 
-          {/* التقييم */}
-          <div className="flex items-center mt-2">
-            <span className="text-gray-600 text-sm font-medium mr-2 ml-auto">4.8</span>
-            <span className="text-yellow-500">⭐️</span>
-          </div>
-
+          
           {/* التفاصيل */}
           <div className="mt-4">
             <h3 className="text-lg font-semibold text-gray-800 mb-2 text-left">Details</h3>
@@ -228,7 +222,7 @@ function Drinfo() {
     <div className="flex flex-col items-center py-10 px-5">
     <div className="w-full pr-[40px] pl-[40px] ">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-gray-800  ">Working Hours</h2>
+          <h2 className="text-lg font-bold text-gray-800  ">Appointment</h2>
           <button className="text-[#0C7489] text-sm font-medium">See all</button>
         </div>
         <div className="flex gap-4  ">
@@ -273,7 +267,7 @@ function Drinfo() {
         onClick={handleNavigate}
         className="mt-8 w-full bg-[#0C7489] h-[59px] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
       >
-        Book Appointment
+        View Patient's Report
       </button>
       </div>
 
@@ -288,4 +282,4 @@ function Drinfo() {
       );
 }
 
-export default Drinfo;
+export default PatientDetails;

@@ -25,6 +25,10 @@ import AddCardPage from './pages/addcardpage'
 import Appointment from './pages/appointment'
 import Contact from './pages/contactUs'
 import AboutUs from './pages/aboutUs'
+import HomeDoctor from './pages/homeDoctor'
+import Appointments from './pages/appointments'
+import PatientDetails from './pages/patientDetails'
+import PatientReport from './pages/patientReport'
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
 
@@ -54,6 +58,10 @@ function App() {
             <Route path="/src/pages/appointment.jsx" element={<Appointment />} />
             <Route path="/src/pages/contactUs.jsx" element={<Contact />} />
             <Route path="/src/pages/aboutUs.jsx" element={<AboutUs />} />
+            <Route path="/src/pages/homeDoctor.jsx" element={<HomeDoctor />} />
+            <Route path="/src/pages/appointments.jsx" element={<Appointments />} />
+            <Route path="/src/pages/patientDetails.jsx" element={<PatientDetails />} />
+            <Route path="/src/pages/patientReport.jsx" element={<PatientReport />} />
 
             <Route
           path="/src/pages/scan.jsx"

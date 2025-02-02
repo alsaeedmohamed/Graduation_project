@@ -1,28 +1,22 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import profile from '../images/profile.svg';
+import doctorprofile from '../images/doctorprofile.svg';
 import ring from '../images/ring.svg';
 import search from '../images/search.svg';
 import settings from '../images/settings.svg';
-import Doctor from '../images/doctor2.svg';
+import doctor from '../images/doctor.svg';
 import moon from '../images/moon.svg';
 import about from '../images/about.svg';
 import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 import{ useState } from 'react';
-import { useNavigate } from "react-router-dom";
-function Drinfo() {
-    const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const navigate = useNavigate();
+import {  useNavigate } from "react-router-dom";
 
-  const times = ["10:00 AM", "11:00 AM", "12:00 PM"];
-  const dates = ["Sun 4", "Mon 5", "Tue 6"];
 
-  const handleNavigate = () => {
-    navigate("/src/pages/paymentpage.jsx"); // استبدلي "/confirmation" بالمسار المطلوب
-  };
+function HomeDoctor() {
+      const navigate =useNavigate();
+    
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
 
@@ -88,6 +82,7 @@ function Drinfo() {
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
         <h1 className="text-center text-lg font-bold">Settings</h1>
+
         {/* Interface */}
         <div>
           <span className="text-sm font-bold block mb-2 text-left">Interface</span>
@@ -167,125 +162,58 @@ function Drinfo() {
                   <div className="absolute -top-4 right-5 w-8 h-8 bg-white transform rotate-45  border-l-[2px] border-t-[2px] border-[#0c7489]"></div>
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
-        <img src={nonotification} alt=""  className="p-10"/>
+        <img src={nonotification} alt=""  className="w-full "/>
         {/* <h1 className="text-center text-lg font-bold">Settings</h1> */}
-        </div>
+
+        
+
+       
+      </div>
                 </div>
               </div>
             </>
           )}
             <img
-              src={profile} //
+              src={doctorprofile} //
               alt="Profile Icon"
               className="w-[62px] h-[62px] rounded-full"
             />
           </div>
           </div>
-          <div className=" min-h-screen flex justify-center items-center ">
-      <div className="  rounded-lg flex items-start max-w-4xl p-6">
-        {/* صورة الطبيب */}
-        <div className=" flex justify-center">
-          <img
-            src={Doctor} // 
-            alt="Dr. Alaa"
-            className="w-1/3 w-full rounded-lg object-cover"
-          />
-        </div>
-
-        {/* بيانات الطبيب */}
-        <div className="w-2/3 pl-6 font-poppins mt-5">
-          <h2 className="text-2xl font-bold text-gray-800 text-left">Dr. Alaa</h2>
-
-          {/* الدفع */}
-          <div className="flex items-center mt-2">
-            <span className="text-[#0C7489] text-lg font-bold mr-6 text-left">
-              Payment
-            </span>
-            <span className="text-[#0C7489] text-lg font-bold  ml-auto">$120.00</span>
-          </div>
-
-          {/* التقييم */}
-          <div className="flex items-center mt-2">
-            <span className="text-gray-600 text-sm font-medium mr-2 ml-auto">4.8</span>
-            <span className="text-yellow-500">⭐️</span>
-          </div>
-
-          {/* التفاصيل */}
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2 text-left">Details</h3>
-            <p className="text-gray-400 text-sm leading-relaxed text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis. Class
-              aptent taciti sociosqu ad litora torquent per conubia nostra, per
-              inceptos himenaeos. Curabitur tempus urna at turpis condimentum
-              lobortis.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-      {/* Working Hours Section */}
-    <div className="flex flex-col items-center py-10 px-5">
-    <div className="w-full pr-[40px] pl-[40px] ">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-gray-800  ">Working Hours</h2>
-          <button className="text-[#0C7489] text-sm font-medium">See all</button>
-        </div>
-        <div className="flex gap-4  ">
-          {times.map((time, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedTime(time)}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-                selectedTime === time
-                  ? "bg-[#0C7489] text-white"
-                  : "bg-white text-gray-800 border"
-              }`}
+          <div className="min-h-screen flex flex-col md:flex-row">
+            {/* Left Section - Image */}
+      <div className="flex-1  flex items-center justify-center">
+        <div className="text-center px-4">
+          {/* Image */}
+          <h3 className=" font-poppins font-bold text-[80px] leading-[96px] text-left ml-[20px]">
+          Stroke<br/><span className="text-[#0c7489] font-poppins font-bold text-[80px] leading-[96px] text-left">Prediction.</span> </h3>
+          <p className="font-poppins text-[#1E1E1E]  text-[20px] leading-[34px] text-left ml-[20px] mt-[15px]" >Take control of your patients' health – review their stroke risk predictions now!</p>
+          <button
+            type="submit" onClick={() => navigate("/src/pages/appointments.jsx")}
+            className="w-[300px] mt-10 bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
             >
-              {time}
+            Appointments
             </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Date Section */}
-      <div className="w-full mt-6 pr-[40px] pl-[40px]">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-gray-800">Date</h2>
-          <button className="text-[#0C7489] text-sm font-medium">See all</button>
-        </div>
-        <div className="flex gap-4">
-          {dates.map((date, index) => (
             <button
-              key={index}
-              onClick={() => setSelectedDate(date)}
-              className={`flex-1 w-[500px] py-2 rounded-lg text-sm font-medium ${
-                selectedDate === date
-                  ? "bg-[#0C7489] text-white"
-                  : "bg-white text-gray-800 border"
-              }`}
+            type="submit" onClick={() => navigate("/src/pages/ChatBotPage.jsx")}
+            className="w-[300px] mt-10 bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
             >
-              {date}
+            ChatBot
             </button>
-          ))}
         </div>
-        <button
-        onClick={handleNavigate}
-        className="mt-8 w-full bg-[#0C7489] h-[59px] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
-      >
-        Book Appointment
-      </button>
-      </div>
-
-      {/* Book Appointment Button */}
-      
+        </div>
+        {/* Right Section - Form */}
+        <div className="flex items-center justify-center min-h-screen  ">
+        <img src={doctor} alt="" />
     </div>
-        
+          </div>
+         
+          </div>
           
-         </div> 
+         
        
     
       );
 }
 
-export default Drinfo;
+export default HomeDoctor;

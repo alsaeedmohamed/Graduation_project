@@ -6,8 +6,27 @@ import "react-phone-input-2/lib/style.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import countryList from "react-select-country-list";
 import Select from "react-select";
+import {  useNavigate } from "react-router-dom";
 
 function SignUpDoctor() {
+  const navigate =useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    const isValidEmail = emailRegex.test(email);
+    const isPhoneValid = phone.trim() !== "";
+    const isPasswordValid = password.length >= 6;
+    const isCountrySelected = selectedCountry !== null;
+  
+    // تحديث الأخطاء حسب الحالة
+    setEmailError(!isValidEmail);
+    setPasswordError(isPasswordValid ? "" : "يجب أن تكون كلمة المرور على الأقل 6 أحرف");
+  
+    // تنفيذ التنقل إذا كانت كل الشروط صحيحة
+    isValidEmail && isPhoneValid && isPasswordValid && isCountrySelected && navigate("/src/pages/homeDoctor.jsx");
+  };
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState("");
@@ -58,6 +77,7 @@ function SignUpDoctor() {
         ? "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
         : ""
     );
+    
   };
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -88,7 +108,7 @@ function SignUpDoctor() {
       >
           <h1 className="text-4xl font-bold mb-6 text-black text-center	">Sign Up</h1>
           <p className="text-base text-center mb-7 text-gray-600"> Sign Up For Doctor</p>
-          <form>
+          <form onSubmit={handleSubmit}>
             {/* First Name */}
             <div className="mb-4">
               <label className="block font-medium text-gray-600 text-left">
@@ -249,9 +269,10 @@ function SignUpDoctor() {
               className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
             </div>
             {/* Submit Button */}
-            <button
+            <button 
               type="submit"
               className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#0C7489]"
+              
             >
               Register
             </button>

@@ -158,7 +158,7 @@ function HomePatient() {
                   <div className="absolute -top-4 right-5 w-8 h-8 bg-white transform rotate-45  border-l-[2px] border-t-[2px] border-[#0c7489]"></div>
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
-        <img src={nonotification} alt=""  className="p-10"/>
+        <img src={nonotification} alt=""  className="w-full "/>
         {/* <h1 className="text-center text-lg font-bold">Settings</h1> */}
 
         

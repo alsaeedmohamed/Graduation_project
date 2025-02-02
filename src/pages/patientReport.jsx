@@ -1,28 +1,22 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import profile from '../images/profile.svg';
+import doctorprofile from '../images/doctorprofile.svg';
 import ring from '../images/ring.svg';
 import search from '../images/search.svg';
 import settings from '../images/settings.svg';
-import Doctor from '../images/doctor2.svg';
+import xray from '../images/xray.svg';
 import moon from '../images/moon.svg';
 import about from '../images/about.svg';
 import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 import{ useState } from 'react';
-import { useNavigate } from "react-router-dom";
-function Drinfo() {
-    const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const navigate = useNavigate();
+import {  useNavigate } from "react-router-dom";
 
-  const times = ["10:00 AM", "11:00 AM", "12:00 PM"];
-  const dates = ["Sun 4", "Mon 5", "Tue 6"];
 
-  const handleNavigate = () => {
-    navigate("/src/pages/paymentpage.jsx"); // استبدلي "/confirmation" بالمسار المطلوب
-  };
+function PatientReport() {
+      const navigate =useNavigate();
+    
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
 
@@ -88,6 +82,7 @@ function Drinfo() {
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
         <h1 className="text-center text-lg font-bold">Settings</h1>
+
         {/* Interface */}
         <div>
           <span className="text-sm font-bold block mb-2 text-left">Interface</span>
@@ -167,125 +162,93 @@ function Drinfo() {
                   <div className="absolute -top-4 right-5 w-8 h-8 bg-white transform rotate-45  border-l-[2px] border-t-[2px] border-[#0c7489]"></div>
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
-        <img src={nonotification} alt=""  className="p-10"/>
+        <img src={nonotification} alt=""  className="w-full "/>
         {/* <h1 className="text-center text-lg font-bold">Settings</h1> */}
-        </div>
+
+        
+
+       
+      </div>
                 </div>
               </div>
             </>
           )}
             <img
-              src={profile} //
+              src={doctorprofile} //
               alt="Profile Icon"
               className="w-[62px] h-[62px] rounded-full"
             />
           </div>
           </div>
-          <div className=" min-h-screen flex justify-center items-center ">
-      <div className="  rounded-lg flex items-start max-w-4xl p-6">
-        {/* صورة الطبيب */}
-        <div className=" flex justify-center">
+          <div className=" min-h-screen py-10 px-6">
+      {/* Patient Details Section */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 className="text-xl font-bold mb-4 text-teal-800">Patient Details</h2>
+        <div className="grid grid-cols-2 gap-4 text-gray-700">
+          <div>Name: <span className="font-medium">Ahmed</span></div>
+          <div>Phone No: <span className="font-medium">7500190739</span></div>
+          <div>Age: <span className="font-medium">32 years</span></div>
+          <div>Address: <span className="font-medium">Lorem ipsum dolor sit</span></div>
+          <div>Gender: <span className="font-medium">Male</span></div>
+          <div>Medical History: <span className="font-medium">No</span></div>
+        </div>
+      </div>
+
+      {/* X-Rays Section */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 className="text-xl font-bold mb-4 text-teal-800 ">X-Rays</h2>
+        <div className="flex gap-4 flex-wrap ml-[50px]">
+          {/* Static X-Ray Images */}
           <img
-            src={Doctor} // 
-            alt="Dr. Alaa"
-            className="w-1/3 w-full rounded-lg object-cover"
+            src={xray}
+            alt="X-Ray 1"
+            className="w-[300px] h-[300px] rounded-lg object-cover border"
+          />
+          <img
+            src={xray}
+            alt="X-Ray 2"
+            className="w-[300px] h-[300px]  rounded-lg object-cover border"
+          />
+          <img
+            src={xray}
+            alt="X-Ray 3"
+            className="w-[300px] h-[300px]  rounded-lg object-cover border"
           />
         </div>
+      </div>
 
-        {/* بيانات الطبيب */}
-        <div className="w-2/3 pl-6 font-poppins mt-5">
-          <h2 className="text-2xl font-bold text-gray-800 text-left">Dr. Alaa</h2>
+      {/* Chatbot Report Section */}
+      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        <h2 className="text-xl font-bold mb-4 text-teal-800">Chatbot Report</h2>
+        <p className="text-gray-700 text-left">
+          Thank you for using our service. Based on the uploaded tests, here is
+          a summary:
+        </p>
+        <ul className="list-disc pl-6 text-gray-700 mt-4">
+          <li className="text-gray-700 text-left">Cholesterol Level: Elevated (220 mg/dL)</li>
+          <li className="text-gray-700 text-left">Blood Pressure: Normal (120/80)</li>
+          <li className="text-gray-700 text-left">Blood Sugar: Slightly above normal (110 mg/dL fasting)</li>
+        </ul>
+      </div>
 
-          {/* الدفع */}
-          <div className="flex items-center mt-2">
-            <span className="text-[#0C7489] text-lg font-bold mr-6 text-left">
-              Payment
-            </span>
-            <span className="text-[#0C7489] text-lg font-bold  ml-auto">$120.00</span>
-          </div>
-
-          {/* التقييم */}
-          <div className="flex items-center mt-2">
-            <span className="text-gray-600 text-sm font-medium mr-2 ml-auto">4.8</span>
-            <span className="text-yellow-500">⭐️</span>
-          </div>
-
-          {/* التفاصيل */}
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2 text-left">Details</h3>
-            <p className="text-gray-400 text-sm leading-relaxed text-left">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-              vulputate libero et velit interdum, ac aliquet odio mattis. Class
-              aptent taciti sociosqu ad litora torquent per conubia nostra, per
-              inceptos himenaeos. Curabitur tempus urna at turpis condimentum
-              lobortis.
-            </p>
-          </div>
-        </div>
+      {/* Prediction Results Section */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-bold mb-4 text-teal-800">
+          Prediction Results
+        </h2>
+        <p className="text-gray-700">
+          High Risk of stroke. Probability:{" "}
+          <span className="text-red-600 font-bold">54.72%</span>
+        </p>
       </div>
     </div>
-      {/* Working Hours Section */}
-    <div className="flex flex-col items-center py-10 px-5">
-    <div className="w-full pr-[40px] pl-[40px] ">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-gray-800  ">Working Hours</h2>
-          <button className="text-[#0C7489] text-sm font-medium">See all</button>
-        </div>
-        <div className="flex gap-4  ">
-          {times.map((time, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedTime(time)}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-                selectedTime === time
-                  ? "bg-[#0C7489] text-white"
-                  : "bg-white text-gray-800 border"
-              }`}
-            >
-              {time}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Date Section */}
-      <div className="w-full mt-6 pr-[40px] pl-[40px]">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-gray-800">Date</h2>
-          <button className="text-[#0C7489] text-sm font-medium">See all</button>
-        </div>
-        <div className="flex gap-4">
-          {dates.map((date, index) => (
-            <button
-              key={index}
-              onClick={() => setSelectedDate(date)}
-              className={`flex-1 w-[500px] py-2 rounded-lg text-sm font-medium ${
-                selectedDate === date
-                  ? "bg-[#0C7489] text-white"
-                  : "bg-white text-gray-800 border"
-              }`}
-            >
-              {date}
-            </button>
-          ))}
-        </div>
-        <button
-        onClick={handleNavigate}
-        className="mt-8 w-full bg-[#0C7489] h-[59px] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
-      >
-        Book Appointment
-      </button>
-      </div>
-
-      {/* Book Appointment Button */}
-      
-    </div>
-        
+         
+          </div>
           
-         </div> 
+         
        
     
       );
 }
 
-export default Drinfo;
+export default PatientReport;
