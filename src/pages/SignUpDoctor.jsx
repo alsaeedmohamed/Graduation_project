@@ -7,14 +7,14 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import countryList from "react-select-country-list";
 import Select from "react-select";
 import {  useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function SignUpDoctor() {
   const navigate =useNavigate();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // منع إعادة تحميل الصفحة
   
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
     const isValidEmail = emailRegex.test(email);
     const isPhoneValid = phone.trim() !== "";
     const isPasswordValid = password.length >= 6;
@@ -24,9 +24,24 @@ function SignUpDoctor() {
     setEmailError(!isValidEmail);
     setPasswordError(isPasswordValid ? "" : "يجب أن تكون كلمة المرور على الأقل 6 أحرف");
   
-    // تنفيذ التنقل إذا كانت كل الشروط صحيحة
-    isValidEmail && isPhoneValid && isPasswordValid && isCountrySelected && navigate("/src/pages/homeDoctor.jsx");
-  };
+    if (isValidEmail && isPhoneValid && isPasswordValid && isCountrySelected) {
+      try {
+        const response = await axios.post("http://localhost:4000/api/v1/doctors/register", {
+          email,
+          phone,
+          password,
+          country: selectedCountry.value,
+        });
+
+        if (response.status === 200) {
+          navigate("/Graduation_project/src/pages/SignInForm.jsx");
+        }
+      } catch (error) {
+        alert(error.response?.data?.message || "Registration failed! Please try again.");
+      }
+    }
+  }
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState("");
