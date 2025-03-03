@@ -6,51 +6,70 @@ import "react-phone-input-2/lib/style.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import countryList from "react-select-country-list";
 import Select from "react-select";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignUpDoctor() {
-  const navigate =useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault(); // منع إعادة تحميل الصفحة
+  const navigate = useNavigate();
   
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValidEmail = emailRegex.test(email);
-    const isPhoneValid = phone.trim() !== "";
-    const isPasswordValid = password.length >= 6;
-    const isCountrySelected = selectedCountry !== null;
-  
-    // تحديث الأخطاء حسب الحالة
-    setEmailError(!isValidEmail);
-    setPasswordError(isPasswordValid ? "" : "يجب أن تكون كلمة المرور على الأقل 6 أحرف");
-  
-    if (isValidEmail && isPhoneValid && isPasswordValid && isCountrySelected) {
-      try {
-        const response = await axios.post("http://localhost:4000/api/v1/doctors/register", {
-          email,
-          phone,
-          password,
-          country: selectedCountry.value,
-        });
-
-        if (response.status === 200) {
-          navigate("/Graduation_project/src/pages/SignInForm.jsx");
-        }
-      } catch (error) {
-        alert(error.response?.data?.message || "Registration failed! Please try again.");
-      }
-    }
-  }
-
+  // States for all form fields
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [address, setAddress] = useState("");
+  const [nationalId, setNationalId] = useState("");
+  const [academicYear, setAcademicYear] = useState("");
 
-  // Prepare country list options
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation logic
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValidEmail = emailRegex.test(email);
+    const isPhoneValid = phone.trim() !== "";
+    const isPasswordValid = password.length >= 6;
+    const isCountrySelected = selectedCountry !== null;
+
+    setEmailError(!isValidEmail);
+    setPasswordError(isPasswordValid ? "" : "Password must be at least 6 characters");
+
+    if (isValidEmail && isPhoneValid && isPasswordValid && isCountrySelected) {
+      try {
+        const response = await axios.post(
+          "http://localhost:4000/api/v1/doctors/register",
+          {
+            firstName,
+            lastName,
+            email,
+            phone,
+            password,
+            dob,
+            gender,
+            country: selectedCountry.value,
+            address,
+            nationalId,
+            academicYear,
+          }
+        );
+
+        if (response.status === 200) {
+          navigate("/signin");
+        }
+      } catch (error) {
+        alert(error.response?.data?.message || "Registration failed! Please try again.");
+      }
+    }
+  };
+
+  // Country list setup
   const countries = countryList().getData().map((country) => ({
     value: country.value,
     label: (
@@ -65,41 +84,26 @@ function SignUpDoctor() {
     ),
   }));
 
-  // Email validation
+  // Email validation handler
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     setEmailError(!emailRegex.test(value));
   };
 
-  // Handle country selection change
-  const handleCountryChange = (selectedOption) => {
-    setSelectedCountry(selectedOption);
-    console.log("Selected Country:", selectedOption);
-  };
-
-  // Password validation
+  // Password validation handler
   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-
-    const passwordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    setPasswordError(
-      !passwordRegex.test(value)
-        ? "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
-        : ""
-    );
-    
+    setPasswordError(value.length >= 6 ? "" : "Password must be at least 6 characters");
   };
+
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Left Section - Image */}
-      <div className="flex-1  flex items-center justify-center">
+      <div className="flex-1 flex items-center justify-center">
         <div className="text-center px-4">
-          {/* Image */}
           <h2 className="text-2xl font-bold text-gray-700 mt-6">
             Examine & shows Test Results
           </h2>
@@ -107,22 +111,21 @@ function SignUpDoctor() {
             Lorem ipsum dolor sit amet consectetur.
           </p>
           <img
-            src={signup} 
+            src={signup}
             width={1255}
-            height={1255}  
+            height={1255}
             className="mx-auto"
+            alt="Signup Illustration"
           />
         </div>
       </div>
 
       {/* Right Section - Form */}
       <div className="flex-1 flex items-center justify-center p-8">
-      <div
-        className="bg-white rounded-lg shadow-lg p-8 "
-        style={{ width: '660px' }}
-      >
-          <h1 className="text-4xl font-bold mb-6 text-black text-center	">Sign Up</h1>
-          <p className="text-base text-center mb-7 text-gray-600"> Sign Up For Doctor</p>
+        <div className="bg-white rounded-lg shadow-lg p-8" style={{ width: '660px' }}>
+          <h1 className="text-4xl font-bold mb-6 text-black text-center">Sign Up</h1>
+          <p className="text-base text-center mb-7 text-gray-600">Sign Up For Doctor</p>
+          
           <form onSubmit={handleSubmit}>
             {/* First Name */}
             <div className="mb-4">
@@ -131,8 +134,11 @@ function SignUpDoctor() {
               </label>
               <input
                 type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 placeholder="Enter your first name"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+                required
               />
             </div>
 
@@ -141,34 +147,34 @@ function SignUpDoctor() {
               <label className="block font-medium text-gray-600 text-left">
                 Last Name<span className="text-[#FF4D4F]">*</span>
               </label>
-              <input required
+              <input
                 type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 placeholder="Enter your last name"
                 className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+                required
               />
             </div>
 
             {/* Email */}
             <div className="mb-4">
-            <label
-                htmlFor="email"
-                className="block text-gray-700 font-medium mb-2 text-left pl-1"
-            >
+              <label className="block text-gray-700 font-medium mb-2 text-left pl-1">
                 Email<span className="text-[#FF4D4F]">*</span>
-            </label>
-            <input required
+              </label>
+              <input
                 type="email"
-                id="email"
                 value={email}
                 onChange={handleEmailChange}
                 placeholder="Example@gmail.com"
                 className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 ${
-                emailError ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]' : 'border-gray-300 focus:ring-[#0C7489]'
+                  emailError ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]' : 'border-gray-300 focus:ring-[#0C7489]'
                 }`}
-            />
-            {emailError && (
-                <p className="text-[#FF4D4F] text-sm mt-1">Please input valid email. This email is invalid.</p>
-            )}
+                required
+              />
+              {emailError && (
+                <p className="text-[#FF4D4F] text-sm mt-1">Please enter a valid email address</p>
+              )}
             </div>
 
             {/* Password */}
@@ -177,63 +183,66 @@ function SignUpDoctor() {
                 Password<span className="text-[#FF4D4F]">*</span>
               </label>
               <div className="relative">
-                <input required
-                  type={showPassword ? 'text' : 'password'}    
+                <input
+                  type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={handlePasswordChange}
                   placeholder="Enter your password"
                   className={`w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 ${
-                    passwordError
-                      ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]'
-                      : 'border-gray-300 focus:ring-[#0C7489]'
+                    passwordError ? 'border-[#FF4D4F] focus:ring-[#FF4D4F]' : 'border-gray-300 focus:ring-[#0C7489]'
                   }`}
+                  required
                 />
-                {/*  eye icon */}
                 <div
                   className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <FaEye className="text-gray-600"  /> :  <FaEyeSlash className="text-gray-600" />}
+                  {showPassword ? <FaEye className="text-gray-600" /> : <FaEyeSlash className="text-gray-600" />}
                 </div>
               </div>
-              {passwordError && (
-                <p className="text-[#FF4D4F] text-sm mt-1">{passwordError}</p>
-              )}
+              {passwordError && <p className="text-[#FF4D4F] text-sm mt-1">{passwordError}</p>}
             </div>
 
             {/* Date of Birth */}
             <div className="mb-4">
-            <label className="block font-medium text-gray-600 text-left">
-              Date of Birth<span className="text-[#FF4D4F]">*</span>
+              <label className="block font-medium text-gray-600 text-left">
+                Date of Birth<span className="text-[#FF4D4F]">*</span>
               </label>
-            <input required
-            type="date"
-            placeholder="select date"
-              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 "   />
+              <input
+                type="date"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+                required
+              />
             </div>
 
-            {/* select your gender */}
+            {/* Gender */}
             <div className="mb-4">
-            <label className="block font-medium text-gray-700 text-left ">
-              Gender<span className="text-[#FF4D4F]">*</span>
+              <label className="block font-medium text-gray-700 text-left">
+                Gender<span className="text-[#FF4D4F]">*</span>
               </label>
-            <select required className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 "
-            placeholder="Choose your gender">
-            <option>         </option>
-            <option>Male</option>
-            <option>Female</option>
-            </select>
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
             </div>
 
-            {/* phone number */}
+            {/* Phone Number */}
             <div className="mb-4">
               <label className="block font-medium text-gray-700 text-left">
                 Mobile Phone<span className="text-[#FF4D4F]">*</span>
               </label>
-              <PhoneInput  
-                country={"eg"} // Default country
+              <PhoneInput
+                country={"eg"}
                 value={phone}
-                onChange={(value) => setPhone(value)}
+                onChange={setPhone}
                 inputClass="!w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 "
                 placeholder="Enter your mobile phone"
                 required
@@ -243,51 +252,67 @@ function SignUpDoctor() {
             {/* Country Selection */}
             <div className="mb-4">
               <label className="block font-medium text-gray-600 text-left">
-                Your Country<span className="text-[#FF4D4F]">*</span>
+                Country<span className="text-[#FF4D4F]">*</span>
               </label>
               <Select
                 options={countries}
                 value={selectedCountry}
-                onChange={handleCountryChange}
-                className="w-full   focus:ring-[#0C7489] text-gray-700  text-left"
+                onChange={setSelectedCountry}
+                className="w-full focus:ring-[#0C7489] text-gray-700  text-left"
+                classNamePrefix="select"
                 placeholder="Select your country"
+                required
               />
             </div>
-            {/* address */}
-            <div className="mb-4" >
-            <label className="block  font-medium text-gray-700 text-left  ">
-              Address
+
+            {/* Address */}
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700 text-left">
+                Address
               </label>
               <input
-              type="text"
-              placeholder="Your Address"
-              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Your Address"
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+              />
             </div>
+
             {/* National ID */}
-            <div className="mb-4" >
-            <label className="block  font-medium text-gray-700 text-left  ">
-              National ID<span className="text-[#FF4D4F]">*</span>
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700 text-left">
+                National ID<span className="text-[#FF4D4F]">*</span>
               </label>
               <input
-              type="number"
-              placeholder="National ID"
-              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
+                type="number"
+                value={nationalId}
+                onChange={(e) => setNationalId(e.target.value)}
+                placeholder="National ID"
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+                required
+              />
             </div>
+
             {/* Academic Year */}
-            <div className="mb-4" >
-            <label className="block  font-medium text-gray-700 text-left  ">
-            Academic Year <span className="text-[#FF4D4F]">*</span>
+            <div className="mb-4">
+              <label className="block font-medium text-gray-700 text-left">
+                Academic Year<span className="text-[#FF4D4F]">*</span>
               </label>
-              <input required
-              type="number"
-              placeholder="Academic Year "
-              className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2  focus:ring-[#0C7489] text-gray-700 " />
+              <input
+                type="number"
+                value={academicYear}
+                onChange={(e) => setAcademicYear(e.target.value)}
+                placeholder="Academic Year"
+                className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
+                required
+              />
             </div>
+
             {/* Submit Button */}
-            <button 
+            <button
               type="submit"
-              className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#0C7489]"
-              
+              className="w-full bg-[#0C7489] text-white py-2 rounded-md hover:bg-[#095f6f] transition-colors"
             >
               Register
             </button>
