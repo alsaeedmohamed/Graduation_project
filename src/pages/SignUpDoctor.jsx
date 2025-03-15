@@ -21,7 +21,7 @@ function SignUpDoctor() {
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [dob, setDob] = useState("");
+  const [dateOfBirth, setDob] = useState("");
   const [gender, setGender] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [address, setAddress] = useState("");
@@ -30,8 +30,6 @@ function SignUpDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Validation logic
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const isValidEmail = emailRegex.test(email);
     const isPhoneValid = phone.trim() !== "";
@@ -51,7 +49,7 @@ function SignUpDoctor() {
             email,
             phone,
             password,
-            dob,
+            dateOfBirth,
             gender,
             country: selectedCountry.value,
             address,
@@ -60,7 +58,7 @@ function SignUpDoctor() {
           }
         );
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           navigate("/signin");
         }
       } catch (error) {
@@ -88,7 +86,7 @@ function SignUpDoctor() {
   const handleEmailChange = (e) => {
     const value = e.target.value;
     setEmail(value);
-    const emailRegex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setEmailError(!emailRegex.test(value));
   };
 
@@ -210,7 +208,7 @@ function SignUpDoctor() {
               </label>
               <input
                 type="date"
-                value={dob}
+                value={dateOfBirth}
                 onChange={(e) => setDob(e.target.value)}
                 className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-[#0C7489] text-gray-700"
                 required

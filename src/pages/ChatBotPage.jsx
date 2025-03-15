@@ -1,60 +1,70 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React from "react";
+import { FaRobot, FaUser } from "react-icons/fa";
 
-const ChatBotPage = () => {
+const Chatbot = () => {
   return (
-    <div className="flex h-screen bg-gray-100 p-4">
-      {/* Chatbot Section - على اليسار */}
-      <div className="w-1/4 bg-white p-4 rounded-lg shadow-md mr-4">
-        <h2 className="text-xl font-semibold mb-4">Chatbot</h2>
-        <ul className="space-y-2">
-          <li><a href="#" className="text-blue-600 hover:underline">New Chat</a></li>
-          <li><a href="#" className="text-blue-600 hover:underline">Recent Chat</a></li>
-          <li><a href="#" className="text-blue-600 hover:underline">Brain Stroke...</a></li>
-          <li><a href="#" className="text-blue-600 hover:underline">How to save...</a></li>
-          <li><a href="#" className="text-blue-600 hover:underline">The dangers of...</a></li>
-        </ul>
-      </div>
+    <div className="flex flex-1 bg-[#ECF8FF] min-h-screen">
+      {/* Sidebar */}
+      <aside className="w-1/4 bg-white p-4 shadow-md rounded-md h-[90vh] m-4">
+        <h2 className="text-lg font-semibold mb-4 flex items-center text-gray-700">
+          <FaRobot className="text-gray-600 mr-2" /> Chatbot
+        </h2>
 
- {/* Message Section - على اليمين */}
-<div className="flex-1 flex flex-col bg-white rounded-lg shadow-md">
-  {/* عنوان الرسائل */}
-  <h2 className="text-xl font-semibold p-4 border-b">Can you help me, please?</h2>
+        {/* Buttons */}
+        <button className="w-full py-2 mb-2 bg-[#0C7489] text-white rounded-md text-left px-4 font-semibold ">
+          New Chat
+        </button>
+        <button className="w-full py-2 mb-2 bg-gray-300 text-gray-800 rounded-md text-left px-4 font-semibold">
+          Recent Chats
+        </button>
 
-  {/* منطقة الرسائل مع تمكين التمرير */}
-  <div className="flex-1 overflow-y-auto p-4 space-y-4">
-    {/* رسالة المستخدم */}
-    <div className="flex justify-end">
-      <div className="bg-blue-100 p-3 rounded-lg max-w-[70%]">
-        <p className="text-gray-800">Can you help me, please?</p>
-        <span className="text-xs text-gray-500 mt-1 block">3 Monthsold All - 10:30 AM</span>
-      </div>
-    </div>
+        {/* Chat History */}
+        <div className="mt-4 space-y-2">
+          <button className="w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-md text-left shadow-sm">
+            Brain Stroke...
+          </button>
+          <button className="w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-md text-left shadow-sm">
+            How to save...
+          </button>
+          <button className="w-full py-2 px-4 bg-gray-100 text-gray-700 rounded-md text-left shadow-sm">
+            The dangers of...
+          </button>
+        </div>
 
-    {/* رد البوت */}
-    <div className="flex justify-start">
-      <div className="bg-gray-100 p-3 rounded-lg max-w-[70%]">
-        <p className="text-gray-800"><strong>NEXT TIME</strong></p>
-        <p className="text-gray-800"><strong>Mohamed All</strong></p>
-        <span className="text-xs text-gray-500 mt-1 block">Neuro Guard - 10:31 AM</span>
-      </div>
-    </div>
-  </div>
+        {/* User Info */}
+        <div className="mt-6 bg-[#D6E9FF] p-3 rounded-md flex items-center shadow-sm">
+          <FaUser className="text-[#007bff] w-10 h-10 mr-3" />
+          <div>
+            <p className="text-sm text-gray-600">Welcome back,</p>
+            <p className="font-semibold text-black">Mohamed Ali</p>
+          </div>
+        </div>
+      </aside>
 
-  {/* حقل الإدخال الثابت في الأسفل */}
-  <div className="p-4 border-t">
-    <input
-      type="text"
-      placeholder="Type a new message here..."
-      className="w-full p-3 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-  </div>
-</div>
+      {/* Chat Area */}
+      <main className="flex-1 p-6 flex flex-col justify-end">
+        {/* Chat Messages - تم إنزالهم لأسفل وتكبير الحجم */}
+        <div className="flex justify-center gap-4 mb-6">
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center w-60 border border-gray-300 text-lg font-medium">
+            Can you help me, please?
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center w-60 border border-gray-300 text-lg font-medium">
+            Can you help me, please?
+          </div>
+        </div>
 
-<div className="flex justify-end p-4">
-      </div>
+        {/* Input Field - أسفل الشاشة */}
+        <div className="w-full max-w-2xl mx-auto mb-6">
+          <input
+            type="text"
+            placeholder="Type a new message here..."
+            className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+        </div>
+      </main>
     </div>
   );
 };
 
-export default ChatBotPage;
+export default Chatbot;
