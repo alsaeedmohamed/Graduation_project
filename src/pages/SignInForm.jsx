@@ -37,16 +37,14 @@ function SignInForm() {
         email,
         password,
       });
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-        navigate("/Graduation_project/src/pages/Homepatient.jsx");
+      if (response.status === 200) {
+        navigate("/src/pages/HomePatient.jsx");
       }
     } catch (err) {
       setError(err.response?.data?.message || "حدث خطأ أثناء تسجيل الدخول.");
     } finally {
       setLoading(false);
     }
-
   };
 
   return (
@@ -105,7 +103,7 @@ function SignInForm() {
                 required
               />
               <div className="text-right mt-1">
-              <Link to="/src/pages/Rest.jsx" className="text-[#0066D8] hover:underline">Forgot Password?</Link>
+                <Link to="/src/pages/Rest.jsx" className="text-[#0066D8] hover:underline">Forgot Password?</Link>
               </div>
             </div>
 
@@ -127,6 +125,7 @@ function SignInForm() {
             <button
               type="button"
               className="w-full flex items-center justify-center mt-4 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-100"
+              onClick={() => window.location.href = 'http://localhost:4000/api/v1/auth/google'}
             >
               <FaGoogle className="mr-2 text-[#000000]" />
               Continue with Google
@@ -136,7 +135,7 @@ function SignInForm() {
           {/* Sign Up Link */}
           <p className="text-gray-600 text-sm text-center mt-6">
             Do not have an account?{' '}
-            <Link to="/signup" className="text-[#0066D8] hover:underline">Sign Up</Link>
+            <Link to="/src/pages/SelectRole.jsx" className="text-[#0066D8] hover:underline">Sign Up</Link>
           </p>
         </div>
       </div>

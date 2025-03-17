@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="border-b-[1px] border-gray-300 border-spacing-1 " >
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
+      <div className=" bg-[#f6fbfc] container mx-auto flex items-center justify-between px- py-3">
         <div className="flex items-center text-lg font-bold text-[#000000]">
           <img src={logo} alt="" className="h-12 w-12" />
           <span className="ml-4 text-xl font-bold text-gray-800">Neuro Guard</span>

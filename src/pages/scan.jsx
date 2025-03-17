@@ -210,18 +210,33 @@ const Scan = ({ setUploadedImage }) => {
         )}
       </div>
 
-      {/* File Input */}
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="w-[780px] h-[72px] border-[1.4px] border-[#0c7489] mt-4 rounded px-4 p-5 "
-      />
-
+      <div className="mt-4">
+  <label
+    htmlFor="file-upload"
+    className="inline-flex items-center justify-center font-medium px-6 py-3 bg-[#0c7489] w-[780px] h-[72px] text-white rounded-lg cursor-pointer hover:bg-teal-700"
+  >
+    Choose File
+  </label>
+  <input
+    id="file-upload"
+    type="file"
+    accept="image/*"
+    onChange={handleFileChange}
+    className="hidden"
+  />
+</div>
+{/* Enhancer Button */}
+<div className="mt-6">
+<button
+    className="inline-flex items-center justify-center font-medium px-6 py-3 bg-[#0c7489] w-[780px] h-[72px] text-white rounded-lg cursor-pointer hover:bg-teal-700"
+  >
+    Enhancer
+  </button>
+  </div>
       {/* Scan Button */}
       <button
         onClick={handleScan}
-        className="bg-[#0c7489] font-medium  text-white w-[780px] h-[72px] mt-6 py-2 rounded"
+        className="bg-[#0c7489] font-medium  text-white w-[780px] h-[72px] mt-6 py-2 rounded cursor-pointer hover:bg-teal-700"
         disabled={!selectedFile}
       >
         Scan

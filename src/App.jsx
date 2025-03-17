@@ -34,8 +34,8 @@ function App() {
 
   return (
 <Router>
-      <div  className="bg-[#f6fbfc] min-h-screen" >
-        <Header />
+      <div  className="bg-[#f6fbfc] min-h-screen " >
+      <Header />
         <main style={{ minHeight: "80vh" }}>
           <Routes>
             <Route path="/src/pages/SignInForm.jsx" element={<SignInForm />} />

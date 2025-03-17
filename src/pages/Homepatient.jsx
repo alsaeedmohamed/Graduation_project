@@ -12,6 +12,7 @@ import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 import{ useState } from 'react';
 
+
 function HomePatient() {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
@@ -30,7 +31,9 @@ function HomePatient() {
     setIsDarkMode(!isDarkMode);
   };
     return (
+      
         <div>
+          
         <div className="flex items-center justify-between px-4 bg-white  h-[110px]">
           {/* Logo */}
           <h1 className="text-[#0c7489] font-poppins font-normal text-[25px] leading-[37.5px]">Protect your mind, smarty</h1>

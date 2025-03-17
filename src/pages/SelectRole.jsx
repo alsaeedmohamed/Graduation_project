@@ -77,21 +77,7 @@ function RoleSelectionPage() {
             </label>
             </div>
 
-          {/* Amenities */}
-          <div className="flex flex-col mb-4">
-            <div className="w-full mt-1 mb-1 p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2  text-gray-900 text-left">
-            <label className="flex items-center mb-2">
-              <input
-                type="radio"
-                name="role"
-                value="amenities"
-                className="mr-2"
-                onChange={handleRoleChange}
-              />
-              <p > Amenities </p>
-            </label>
-            </div>
-          </div>
+
           
           {/* Continue Button */}
           <Link

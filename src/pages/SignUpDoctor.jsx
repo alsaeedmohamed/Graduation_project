@@ -59,7 +59,7 @@ function SignUpDoctor() {
         );
 
         if (response.status === 201) {
-          navigate("/signin");
+          navigate("/src/pages/SignInForm.jsx");
         }
       } catch (error) {
         alert(error.response?.data?.message || "Registration failed! Please try again.");
@@ -90,11 +90,18 @@ function SignUpDoctor() {
     setEmailError(!emailRegex.test(value));
   };
 
-  // Password validation handler
-  const handlePasswordChange = (e) => {
+   // Password validation
+   const handlePasswordChange = (e) => {
     const value = e.target.value;
     setPassword(value);
-    setPasswordError(value.length >= 6 ? "" : "Password must be at least 6 characters");
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    setPasswordError(
+      !passwordRegex.test(value)
+        ? "Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character."
+        : ""
+    );
   };
 
   return (
