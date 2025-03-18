@@ -2,56 +2,60 @@
 import React from "react";
 import restpass from '../images/restpass.svg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import{ useState } from 'react';
-import {  useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios'; // استيراد axios
+
 const SignInForm = () => {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [passwordMatchError, setPasswordMatchError] = useState(""); // Added state for password match error
+  const [passwordMatchError, setPasswordMatchError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Added state for confirm password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [success, setSuccess] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // تأكدي هنا إن الفورم صحيح قبل التنقل
+
+    // التحقق من صحة الفورم قبل إرسال الطلب
     if (
-      password && // كلمة المرور مش فاضية
-      !passwordError && // لا يوجد خطأ في كلمة المرور
-      confirmPassword && // تأكيد كلمة المرور مش فاضي
-      password === confirmPassword // كلمة المرور وتأكيدها متطابقان
-    
-      
+      password &&
+      !passwordError &&
+      confirmPassword &&
+      password === confirmPassword
     ) {
-        
-      navigate("/src/pages/SignInForm.jsx");
-      
-      
-    }
-    if (password !== confirmPassword) {
+      try {
+        // إرسال طلب POST للـ API
+        // eslint-disable-next-line no-unused-vars
+        const response = await axios.post('http://localhost:4000/api/v1/auth/reset-password', {
+          password: password,
+          confirmPassword: confirmPassword
+        });
+
+        // لو الطلب نجح
+        setSuccess("Password successfully reset!");
+        setError("");
+        setPasswordMatchError("");
+
+        // التنقل لصفحة تسجيل الدخول بعد ثانية
+        setTimeout(() => {
+          navigate("/src/pages/SignInForm.jsx");
+        }, 1000);
+      } catch (err) {
+        // التعامل مع الأخطاء من الـ API
+        setError(err.response?.data?.message || "Something went wrong, please try again.");
+        setSuccess("");
+        setPasswordMatchError("");
+      }
+    } else if (password !== confirmPassword) {
       setPasswordMatchError("Passwords do not match!");
       setError('');
       setSuccess('');
-    } else {
-      setPasswordMatchError('');
-      updatePassword(password); // Simulate password update
     }
-    
   };
-
-  // eslint-disable-next-line no-unused-vars
-  const updatePassword = (password) => {
-    // Simulate password update success
-    setTimeout(() => {
-      setSuccess("Password successfully reset!");
-      setError("");
-    }, 1000); // Simulate server delay
-  };
-
- 
 
   // Password validation
   const handlePasswordChange = (e) => {
@@ -84,7 +88,7 @@ const SignInForm = () => {
         </div>
       </div>
 
-      {/* Right Section*/}
+      {/* Right Section */}
       <div className="flex items-center justify-center min-h-screen" style={{ width: '660px', height: '489px' }}>
         <div className="bg-white p-8 rounded-md shadow-md w-96">
           <h1 className="text-2xl font-bold mb-4 text-center">Reset Password</h1>
@@ -108,7 +112,6 @@ const SignInForm = () => {
                       : 'border-gray-300 focus:ring-[#0C7489]'
                   }`}
                 />
-                {/* Eye icon for password */}
                 <div
                   className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
@@ -134,7 +137,6 @@ const SignInForm = () => {
                   required
                   placeholder="Enter Password"
                 />
-                {/* Eye icon for confirm password */}
                 <div
                   className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
@@ -149,7 +151,7 @@ const SignInForm = () => {
             {passwordMatchError && <p className="text-red-500 text-sm mb-4">{passwordMatchError}</p>}
             {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
 
-            <button 
+            <button
               type="submit"
               className="w-full bg-[#0c7489] text-white py-2 px-4 rounded-md hover:bg-[#0b6779] transition duration-200"
             >

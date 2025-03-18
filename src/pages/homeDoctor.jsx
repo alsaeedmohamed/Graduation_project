@@ -34,6 +34,7 @@ function HomeDoctor() {
     setIsDarkMode(!isDarkMode);
   };
     return (
+      
         <div>
         <div className="flex items-center justify-between px-4 bg-white  h-[110px]">
           {/* Logo */}

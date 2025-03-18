@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import signin from '../images/signin.svg';
 import { FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'; // استيراد prop-types
 
-function SignInForm() {
+function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,12 +33,21 @@ function SignInForm() {
       setLoading(false);
       return;
     }
+
     try {
       const response = await axios.post("http://localhost:4000/api/v1/auth/login", {
         email,
         password,
+      }, {
+        withCredentials: true,
       });
+
       if (response.status === 200) {
+        // استدعاء onLogin لتغيير حالة isLoggedIn في App.jsx
+        if (onLogin) {
+          onLogin(); // ده بيغير isLoggedIn لـ true
+        }
+        // Redirect لصفحة HomePatient بعد النجاح
         navigate("/src/pages/HomePatient.jsx");
       }
     } catch (err) {
@@ -142,5 +152,10 @@ function SignInForm() {
     </div>
   );
 }
+
+// تعريف Prop Types
+SignInForm.propTypes = {
+  onLogin: PropTypes.func.isRequired, // onLogin بتاع نوع Function ومطلوب
+};
 
 export default SignInForm;
