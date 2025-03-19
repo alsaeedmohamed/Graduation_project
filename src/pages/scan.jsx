@@ -19,7 +19,7 @@ const Scan = ({ setUploadedImage }) => {
 
   const handleScan = () => {
     if (selectedFile) {
-      navigate("/Graduation_project/src/pages/scaning.jsx");
+      navigate("/src/pages/scaning.jsx");
     }
   };
 
