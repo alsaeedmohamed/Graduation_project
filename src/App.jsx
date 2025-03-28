@@ -45,7 +45,7 @@ function App() {
   return (
     <Router>
       <div className="bg-[#f6fbfc] min-h-screen">
-        {/* اختيار الـ Navbar بناءً على حالة الـ login */}
+        {/* Navbar login */}
         {isLoggedIn ? <LoggedInNavbar /> : <Header />}
 
         <main style={{ minHeight: "80vh" }}>

@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import Axios for API requests
 import predict from "../images/predict.svg";
 
+// List of questions used in the form
 const questions = [
   { id: 1, question: "What is your age?", type: "number" },
   { id: 2, question: "Do you have hypertension?", type: "dropdown", options: ["0", "1"] },
@@ -18,19 +20,24 @@ const questions = [
 
 function Prediction() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1);
-  const [answers, setAnswers] = useState({});
-  const [error, setError] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1); // Track the current step
+  const [answers, setAnswers] = useState({}); // Store user answers
+  const [error, setError] = useState(false); // Error state
+  const [loading, setLoading] = useState(false); // Loading state during API request
 
+  // Move to the next question
   const handleNext = () => {
+    console.log("Current Step:", currentStep, "Answer:", answers[currentStep]);
     if (!answers[currentStep] && answers[currentStep] !== 0) {
       setError(true);
+      
     } else {
       setError(false);
       setCurrentStep(currentStep + 1);
     }
   };
 
+  // Go back to the previous question
   const handleBack = () => {
     setError(false);
     if (currentStep > 1) {
@@ -38,6 +45,7 @@ function Prediction() {
     }
   };
 
+  // Update answers when inputs change
   const handleInputChange = (e) => {
     setAnswers({
       ...answers,
@@ -46,6 +54,7 @@ function Prediction() {
     setError(false);
   };
 
+  // Increment value for numeric questions
   const handleIncrement = () => {
     setAnswers({
       ...answers,
@@ -54,6 +63,7 @@ function Prediction() {
     setError(false);
   };
 
+  // Decrement value for numeric questions
   const handleDecrement = () => {
     setAnswers({
       ...answers,
@@ -62,22 +72,49 @@ function Prediction() {
     setError(false);
   };
 
+  // Send data to API and predict
   const handlePredict = async () => {
+    setLoading(true); // Start loading
     try {
-      const response = await fetch("https://your-backend-api.com/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ answers }),
-      });
+      // Format answers to match API expectations
+      const formattedAnswers = {
+        age: answers[1],
+        hypertension: answers[2] === "Yes" ? 1 : 0,
+        heart_disease: answers[3] === "Yes" ? 1 : 0,
+        avg_glucose_level: answers[4],
+        bmi: answers[5],
+        gender: answers[6],
+        ever_married: answers[7],
+        work_type: answers[8],
+        residence_type: answers[9],
+        smoking_status: answers[10]
+      };
+      console.log("Formatted Answers:", JSON.stringify(formattedAnswers)); 
+      // Send POST request to API
+      const response = await axios.post(
+        "http://localhost:4000/api/v1/storke/predict",
+        formattedAnswers,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,} 
+      );
 
-      const data = await response.json();
-      if (data.probability > 0.5) {
-        window.location.href = "/src/pages/highrisk.jsx";
+      // Assuming API returns a "probability" field for prediction
+      const { probability } = response.data;
+
+      // Redirect user based on probability
+      if (probability > 0.5) {
+        navigate("/src/pages/highrisk.jsx");
       } else {
-        window.location.href = "/src/pages/lowrisk.jsx";
+        navigate("/src/pages/lowrisk.jsx");
       }
     } catch (error) {
       console.error("Error during prediction:", error);
+      setError(true); 
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -102,7 +139,7 @@ function Prediction() {
           <h1 className="text-2xl font-bold mb-2 text-center">Predict your stroke risk now!</h1>
           <p className="text-gray-600 text-center mb-4">Answer questions to help us assess your risk of stroke </p>
           <p className="text-sm text-center text-[#0C7489] mb-6">
-          Step {currentStep} of {questions.length}
+            Step {currentStep} of {questions.length}
           </p>
           <label htmlFor="answer" className="block text-left text-lg font-medium mb-2">
             {questions[currentStep - 1].question}
@@ -151,8 +188,8 @@ function Prediction() {
                 Next
               </button>
             ) : (
-              <button onClick={handlePredict} className="w-full bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
-                Predict
+              <button onClick={handlePredict} className="w-full bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300" disabled={loading}>
+                {loading ? "Predicting..." : "Predict"}
               </button>
             )}
           </div>

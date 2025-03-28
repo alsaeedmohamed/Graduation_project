@@ -1,4 +1,5 @@
 import lowRisk from "../images/result2.svg"
+
 const LowRisk = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen ">
@@ -13,7 +14,7 @@ const LowRisk = () => {
       {/* رسالة النتيجة */}
       <p className="text-lg text-gray-700 font-medium p-5">
         Low Risk of stroke. Probability:{" "}
-        <span className="text-[#0c7489]  font-bold">00.07%</span>
+        <span className="text-[#0c7489]  font-bold"></span>
       </p>
     </div>
   );
