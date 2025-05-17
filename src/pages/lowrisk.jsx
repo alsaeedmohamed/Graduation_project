@@ -1,9 +1,12 @@
-import lowRisk from "../images/result2.svg"
+import lowRisk from "../images/result2.svg";
+import { useLocation } from "react-router-dom";
 
 const LowRisk = () => {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen ">
+  const location = useLocation();
+  const probability = location.state?.probability;
 
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen">
       {/* الصورة */}
       <img
         src={lowRisk}
@@ -14,7 +17,11 @@ const LowRisk = () => {
       {/* رسالة النتيجة */}
       <p className="text-lg text-gray-700 font-medium p-5">
         Low Risk of stroke. Probability:{" "}
-        <span className="text-[#0c7489]  font-bold"></span>
+        <span className="text-[#0c7489] font-bold">
+          {probability !== undefined
+            ? `${(probability * 100).toFixed(2)}%`
+            : "N/A"}
+        </span>
       </p>
     </div>
   );

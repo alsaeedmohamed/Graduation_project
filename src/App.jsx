@@ -31,6 +31,10 @@ import Appointments from './pages/appointments';
 import PatientDetails from './pages/patientDetails';
 import PatientReport from './pages/patientReport';
 import LoggedInNavbar from "./components/LoggedInHeader";
+import ScanResult from "./pages/ScanResult";
+
+
+
 
 
 function App() {
@@ -74,6 +78,7 @@ function App() {
             <Route path="/src/pages/appointments.jsx" element={<Appointments />} />
             <Route path="/src/pages/patientDetails.jsx" element={<PatientDetails />} />
             <Route path="/src/pages/patientReport.jsx" element={<PatientReport />} />
+            <Route path="/src/pages/ScanResult.jsx" element={<ScanResult />} />
             <Route
               path="/src/pages/scan.jsx"
               element={<Scan setUploadedImage={setUploadedImage} />}

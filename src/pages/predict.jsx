@@ -27,10 +27,8 @@ function Prediction() {
 
   // Move to the next question
   const handleNext = () => {
-    console.log("Current Step:", currentStep, "Answer:", answers[currentStep]);
     if (!answers[currentStep] && answers[currentStep] !== 0) {
       setError(true);
-      
     } else {
       setError(false);
       setCurrentStep(currentStep + 1);
@@ -58,7 +56,7 @@ function Prediction() {
   const handleIncrement = () => {
     setAnswers({
       ...answers,
-      [currentStep]: (answers[currentStep] || 0) + 1,
+      [currentStep]: Number(answers[currentStep] || 0) + 1,
     });
     setError(false);
   };
@@ -67,7 +65,7 @@ function Prediction() {
   const handleDecrement = () => {
     setAnswers({
       ...answers,
-      [currentStep]: Math.max((answers[currentStep] || 0) - 1, 0),
+      [currentStep]: Math.max(Number(answers[currentStep] || 0) - 1, 0),
     });
     setError(false);
   };
@@ -79,8 +77,8 @@ function Prediction() {
       // Format answers to match API expectations
       const formattedAnswers = {
         age: answers[1],
-        hypertension: answers[2] === "Yes" ? 1 : 0,
-        heart_disease: answers[3] === "Yes" ? 1 : 0,
+        hypertension: answers[2],
+        heart_disease: answers[3],
         avg_glucose_level: answers[4],
         bmi: answers[5],
         gender: answers[6],
@@ -89,8 +87,9 @@ function Prediction() {
         residence_type: answers[9],
         smoking_status: answers[10]
       };
-      console.log("Formatted Answers:", JSON.stringify(formattedAnswers)); 
-      // Send POST request to API
+
+      console.log("Formatted Answers:", JSON.stringify(formattedAnswers));
+
       const response = await axios.post(
         "http://localhost:4000/api/v1/storke/predict",
         formattedAnswers,
@@ -98,23 +97,22 @@ function Prediction() {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true,} 
+          withCredentials: true,
+        }
       );
 
-      // Assuming API returns a "probability" field for prediction
       const { probability } = response.data;
 
-      // Redirect user based on probability
       if (probability > 0.5) {
-        navigate("/src/pages/highrisk.jsx");
+        navigate("/src/pages/highrisk.jsx", { state: { probability } });
       } else {
-        navigate("/src/pages/lowrisk.jsx");
+        navigate("/src/pages/lowrisk.jsx", { state: { probability } });
       }
     } catch (error) {
       console.error("Error during prediction:", error);
-      setError(true); 
+      setError(true);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -144,6 +142,7 @@ function Prediction() {
           <label htmlFor="answer" className="block text-left text-lg font-medium mb-2">
             {questions[currentStep - 1].question}
           </label>
+
           {questions[currentStep - 1].type === "dropdown" ? (
             <select
               id="answer"
@@ -163,14 +162,15 @@ function Prediction() {
             </select>
           ) : (
             <div className="flex items-center border rounded-lg p-3 mb-3">
+              <button onClick={handleDecrement} className="text-lg font-bold px-2">-</button>
               <input
                 type="number"
                 id="answer"
                 className="w-full text-center border-none focus:outline-none"
-                value={answers[currentStep] || 0}
-                readOnly
+                value={answers[currentStep] || ""}
+                onChange={handleInputChange}
+                min="0"
               />
-              <button onClick={handleDecrement} className="text-lg font-bold px-2">-</button>
               <button onClick={handleIncrement} className="text-lg font-bold px-2">+</button>
             </div>
           )}

@@ -1,7 +1,7 @@
-// Scan.jsx
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // eslint-disable-next-line react/prop-types
 const Scan = ({ setUploadedImage }) => {
@@ -12,26 +12,59 @@ const Scan = ({ setUploadedImage }) => {
     const file = e.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setSelectedFile(imageUrl);
+      setSelectedFile(file);
       setUploadedImage(imageUrl);
     }
   };
 
-  const handleScan = () => {
+  const handleScan = async () => {
     if (selectedFile) {
-      navigate("/src/pages/scaning.jsx");
+      try {
+        const formData = new FormData();
+        formData.append("file", selectedFile); // ✅ التعديل هنا
+
+        // Debug: عرض محتوى الفورم
+        for (let [key, value] of formData.entries()) {
+          console.log(`${key}:`, value);
+        }
+
+        const response = await axios.post(
+          "http://127.0.0.1:8000/upload-image/",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+
+        console.log("API Response:", response.data); // ✅ طباعة نتيجة الـ API
+
+        navigate("/src/pages/scaning.jsx", {
+          state: {
+            image: URL.createObjectURL(selectedFile),
+            result: response.data,
+          },
+        });
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        navigate("/src/pages/scaning.jsx", {
+          state: {
+            image: URL.createObjectURL(selectedFile),
+            result: { error: "فشل التحليل" },
+          },
+        });
+      }
     }
   };
 
   return (
     <div>
-      {/* باقي محتوى الصفحة */}
       <div className="flex flex-col items-center p-4">
-        {/* Drag and Drop Box */}
         <div className="w-[780px] h-[440px] border-2 border-dotted border-[#0c7489] rounded-[24px] flex justify-center items-center text-gray-500">
           {selectedFile ? (
             <img
-              src={selectedFile}
+              src={URL.createObjectURL(selectedFile)}
               alt="Preview"
               className="w-full h-full object-contain"
             />
@@ -40,7 +73,6 @@ const Scan = ({ setUploadedImage }) => {
           )}
         </div>
 
-        {/* Choose File and Enhancer Buttons in the same row with total width 780px */}
         <div className="mt-4 flex w-[780px] h-[72px] space-x-2">
           <label
             htmlFor="file-upload"
@@ -55,7 +87,6 @@ const Scan = ({ setUploadedImage }) => {
             onChange={handleFileChange}
             className="hidden"
           />
-
           <button
             className="inline-flex items-center justify-center font-medium px-6 py-3 bg-[#0c7489] text-white rounded-r-lg cursor-pointer hover:bg-teal-700 w-1/2 h-full"
           >
@@ -63,7 +94,6 @@ const Scan = ({ setUploadedImage }) => {
           </button>
         </div>
 
-        {/* Scan Button */}
         <button
           onClick={handleScan}
           className="bg-[#0c7489] font-medium text-white w-[780px] h-[72px] mt-6 py-2 rounded cursor-pointer hover:bg-teal-700"
