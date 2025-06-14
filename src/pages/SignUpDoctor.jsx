@@ -42,7 +42,7 @@ function SignUpDoctor() {
     if (isValidEmail && isPhoneValid && isPasswordValid && isCountrySelected) {
       try {
         const response = await axios.post(
-          "http://localhost:4000/api/v1/doctors/register",
+          "https://neuroguard-api.onrender.com/api/v1/doctors/register",
           {
             firstName,
             lastName,
