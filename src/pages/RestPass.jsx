@@ -30,10 +30,10 @@ const SignInForm = () => {
       try {
         // إرسال طلب POST للـ API
         // eslint-disable-next-line no-unused-vars
-        const response = await axios.post('http://localhost:4000/api/v1/auth/reset-password', {
-          password: password,
-          confirmPassword: confirmPassword
-        });
+        const response = await axios.patch('http://localhost:4000/api/v1/auth/reset-password', {
+          newPassword: password,
+          confirmNewPassword: confirmPassword
+        }, {withCredentials: true});
 
         // لو الطلب نجح
         setSuccess("Password successfully reset!");

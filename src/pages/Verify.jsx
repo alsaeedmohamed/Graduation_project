@@ -22,7 +22,7 @@ function SignInForm() {
         // eslint-disable-next-line no-unused-vars
         const response = await axios.post('http://localhost:4000/api/v1/auth/verify-otp', {
           otp:  code // إرسال الـ OTP للـ API
-        });
+        } ,{withCredentials: true});
 
         // لو الطلب نجح
         setSuccess("OTP verified successfully!");
