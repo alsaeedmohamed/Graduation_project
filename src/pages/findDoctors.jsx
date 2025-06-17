@@ -1,5 +1,6 @@
 // FindDoctors.jsx
 // eslint-disable-next-line no-unused-vars
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -17,12 +18,13 @@ function FindDoctors() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://localhost:4000/api/v1/doctors"); // Replace with your API endpoint
-        if (!response.ok) {
+        const response = await axios.get("http://localhost:4000/api/v1/doctors?limit=30"); // Replace with your API endpoint
+
+        if (!response.status == 200) {
           throw new Error("Failed to fetch doctors");
         }
-        const data = await response.json();
-        setDoctors(data); // Store the data in state
+        const data = await response.data.data;
+        setDoctors(data.doctors); // Store the data in state
       } catch (error) {
         setError(error.message); // Store error message if fetch fails
       } finally {
@@ -34,7 +36,7 @@ function FindDoctors() {
 
   // Navigate to doctor info page
   const handleNavigate = () => {
-    navigate("/src/pages/drinfo.jsx");
+    navigate("/doctor");
   };
 
   // Handle navigation to the next set of doctors
@@ -104,16 +106,16 @@ function FindDoctors() {
             className="bg-white shadow-md rounded-lg flex items-center max-w-lg"
           >
             <img
-              src={doctor.image}
+              src={doctor.profileImg}
               alt="Doctor"
               className="w-[177px] h-[323px] rounded-full object-cover mr-4"
             />
             <div className="flex-1 mr-5 font-poppins">
               <h3 className="text-lg font-poppins font-bold text-gray-800 text-left">
-                {doctor.name}
+                {`${doctor.firstName} ${doctor.lastName}`}
               </h3>
               <p className="text-sm text-gray-500 text-left">
-                {doctor.specialty} | {doctor.hospital}
+                {doctor.specialization}
               </p>
               <div className="flex items-center text-gray-600 text-sm mt-2">
                 <div className="flex items-center mr-4">
