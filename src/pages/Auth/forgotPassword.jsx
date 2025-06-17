@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import forgetPassword from '../images/forgetPassword.svg';
+import forgetPassword from '../../images/forgetPassword.svg';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios'; // استيراد axios

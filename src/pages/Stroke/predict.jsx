@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"; // Import Axios for API requests
-import predict from "../images/predict.svg";
+import predict from "../../images/predict.svg";
 
 // List of questions used in the form
 const questions = [

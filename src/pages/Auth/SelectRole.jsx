@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import Role from "../images/Role.svg"
+import Role from "../../images/Role.svg"
 import { Link } from 'react-router-dom';
 import { useState } from "react";
 function RoleSelectionPage() {

@@ -2,9 +2,9 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import setting1 from '../images/setting1.svg';
-import setting2 from '../images/setting2.svg';
-import setting3 from '../images/setting3.svg';
+import setting1 from '../../images/setting1.svg';
+import setting2 from '../../images/setting2.svg';
+import setting3 from '../../images/setting3.svg';
 
 
 function Services() {

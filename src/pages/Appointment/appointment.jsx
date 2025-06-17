@@ -1,7 +1,7 @@
 // Appointment.jsx
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import appointment from '../images/appointment.svg';
+import appointment from '../../images/appointment.svg';
 function Appointment() {
   return (
     <div>

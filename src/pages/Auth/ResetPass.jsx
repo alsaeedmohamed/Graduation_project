@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import resetpass from '../images/restpass.svg';
+import resetpass from '../../images/restpass.svg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";

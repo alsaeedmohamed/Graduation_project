@@ -1,7 +1,7 @@
 // HomePatient.jsx
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import doctor from '../images/doctor.svg';
+import doctor from '../../images/doctor.svg';
 
 function HomePatient() {
   return (

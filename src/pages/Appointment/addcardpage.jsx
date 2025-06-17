@@ -1,22 +1,27 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import doctorprofile from '../images/doctorprofile.svg';
-import ring from '../images/ring.svg';
-import search from '../images/search.svg';
-import settings from '../images/settings.svg';
-import xray from '../images/xray.svg';
-import moon from '../images/moon.svg';
-import about from '../images/about.svg';
-import account from '../images/account.svg';
-import world from '../images/world.svg';
-import nonotification from '../images/nonotification.svg';
+import profile from '../../images/profile.svg';
+import ring from '../../images/ring.svg';
+import search from '../../images/search.svg';
+import settings from '../../images/settings.svg';
+import Card from '../../images/card.svg';
+import moon from '../../images/moon.svg';
+import about from '../../images/about.svg';
+import account from '../../images/account.svg';
+import world from '../../images/world.svg';
+import nonotification from '../../images/nonotification.svg';
 import{ useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 
-
-function PatientReport() {
-      const navigate =useNavigate();
+function AddCardPage() {
+        const navigate =useNavigate();
     
+    const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [saveCard, setSaveCard] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
 
@@ -162,7 +167,7 @@ function PatientReport() {
                   <div className="absolute -top-4 right-5 w-8 h-8 bg-white transform rotate-45  border-l-[2px] border-t-[2px] border-[#0c7489]"></div>
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
-        <img src={nonotification} alt=""  className="w-full "/>
+        <img src={nonotification} alt=""  className="p-10"/>
         {/* <h1 className="text-center text-lg font-bold">Settings</h1> */}
 
         
@@ -174,72 +179,86 @@ function PatientReport() {
             </>
           )}
             <img
-              src={doctorprofile} //
+              src={profile} //
               alt="Profile Icon"
               className="w-[62px] h-[62px] rounded-full"
             />
           </div>
           </div>
-          <div className=" min-h-screen py-10 px-6">
-      {/* Patient Details Section */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-bold mb-4 text-teal-800">Patient Details</h2>
-        <div className="grid grid-cols-2 gap-4 text-gray-700">
-          <div>Name: <span className="font-medium">Ahmed</span></div>
-          <div>Phone No: <span className="font-medium">7500190739</span></div>
-          <div>Age: <span className="font-medium">32 years</span></div>
-          <div>Address: <span className="font-medium">Lorem ipsum dolor sit</span></div>
-          <div>Gender: <span className="font-medium">Male</span></div>
-          <div>Medical History: <span className="font-medium">No</span></div>
+          <div className="flex justify-center items-center min-h-screen ">
+      <div className=" p-6   w-full mr-[50px] ml-[50px]">
+        {/* بطاقة الكريدت */}
+        <div className="rounded-lg text-white w-full relative">
+         
+            <img
+              src={Card}
+              alt="MasterCard"
+              className="w-full"
+            />
+          
         </div>
-      </div>
 
-      {/* X-Rays Section */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-bold mb-4 text-teal-800 ">X-Rays</h2>
-        <div className="flex gap-4 flex-wrap ml-[50px]">
-          {/* Static X-Ray Images */}
-          <img
-            src={xray}
-            alt="X-Ray 1"
-            className="w-[300px] h-[300px] rounded-lg object-cover border"
+        {/* إدخال بيانات البطاقة */}
+        <h3 className="text-md font-semibold mt-6 text-left">Enter card details</h3>
+        <div className="mt-4 space-y-7">
+          <input
+            type="text"
+            placeholder="Card name"
+            className="w-full p-2 border rounded"
+            value={cardName}
+            onChange={(e) => setCardName(e.target.value)}
           />
-          <img
-            src={xray}
-            alt="X-Ray 2"
-            className="w-[300px] h-[300px]  rounded-lg object-cover border"
+          <input
+            type="text"
+            placeholder="Card number"
+            className="w-full p-2 border rounded"
+            value={cardNumber}
+            onChange={(e) => setCardNumber(e.target.value)}
           />
-          <img
-            src={xray}
-            alt="X-Ray 3"
-            className="w-[300px] h-[300px]  rounded-lg object-cover border"
-          />
+          <div className="flex space-x-3">
+            <input
+              type="text"
+              placeholder="Expiry date"
+              className="w-1/2 p-2 border rounded"
+              value={expiryDate}
+              onChange={(e) => setExpiryDate(e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="CVV"
+              className="w-1/2 p-2 border rounded"
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value)}
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Chatbot Report Section */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-bold mb-4 text-teal-800">Chatbot Report</h2>
-        <p className="text-gray-700 text-left">
-          Thank you for using our service. Based on the uploaded tests, here is
-          a summary:
-        </p>
-        <ul className="list-disc pl-6 text-gray-700 mt-4">
-          <li className="text-gray-700 text-left">Cholesterol Level: Elevated (220 mg/dL)</li>
-          <li className="text-gray-700 text-left">Blood Pressure: Normal (120/80)</li>
-          <li className="text-gray-700 text-left">Blood Sugar: Slightly above normal (110 mg/dL fasting)</li>
-        </ul>
-      </div>
+        {/* الموافقة على الشروط */}
+        <div className="mt-4 space-y-2 text-sm">
+          <label className="flex items-center space-x-2  mt-[20px] mb-[10px]">
+            <input
+              type="checkbox"
+              checked={agreeTerms}
+              onChange={() => setAgreeTerms(!agreeTerms)}
+            />
+            <span>
+              I agree to the <span className="text-[#0C7489]">Terms and conditions</span>
+            </span>
+          </label>
+          <label className="flex items-center space-x-2 mt-[10px] mb-[30px]">
+            <input
+              type="checkbox"
+              checked={saveCard}
+              onChange={() => setSaveCard(!saveCard)}
+            />
+            <span>Save card details</span>
+          </label>
+        </div>
 
-      {/* Prediction Results Section */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-bold mb-4 text-teal-800">
-          Prediction Results
-        </h2>
-        <p className="text-gray-700">
-          High Risk of stroke. Probability:{" "}
-          <span className="text-red-600 font-bold">54.72%</span>
-        </p>
+        {/* زر الإضافة */}
+        <button onClick={() => navigate("/appointment")} className="w-full h-[46px] mt-[20px] bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
+          Add Card
+        </button>
       </div>
     </div>
          
@@ -251,4 +270,4 @@ function PatientReport() {
       );
 }
 
-export default PatientReport;
+export default AddCardPage;

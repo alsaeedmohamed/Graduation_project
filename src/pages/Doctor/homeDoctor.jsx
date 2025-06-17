@@ -1,27 +1,22 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import profile from '../images/profile.svg';
-import ring from '../images/ring.svg';
-import search from '../images/search.svg';
-import settings from '../images/settings.svg';
-import Card from '../images/card.svg';
-import moon from '../images/moon.svg';
-import about from '../images/about.svg';
-import account from '../images/account.svg';
-import world from '../images/world.svg';
-import nonotification from '../images/nonotification.svg';
+import doctorprofile from '../../images/doctorprofile.svg';
+import ring from '../../images/ring.svg';
+import search from '../../images/search.svg';
+import settings from '../../images/settings.svg';
+import doctor from '../../images/doctor.svg';
+import moon from '../../images/moon.svg';
+import about from '../../images/about.svg';
+import account from '../../images/account.svg';
+import world from '../../images/world.svg';
+import nonotification from '../../images/nonotification.svg';
 import{ useState } from 'react';
 import {  useNavigate } from "react-router-dom";
 
-function AddCardPage() {
-        const navigate =useNavigate();
+
+function HomeDoctor() {
+      const navigate =useNavigate();
     
-    const [cardName, setCardName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiryDate, setExpiryDate] = useState("");
-  const [cvv, setCvv] = useState("");
-  const [agreeTerms, setAgreeTerms] = useState(false);
-  const [saveCard, setSaveCard] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
 
@@ -39,6 +34,7 @@ function AddCardPage() {
     setIsDarkMode(!isDarkMode);
   };
     return (
+      
         <div>
         <div className="flex items-center justify-between px-4 bg-white  h-[110px]">
           {/* Logo */}
@@ -167,7 +163,7 @@ function AddCardPage() {
                   <div className="absolute -top-4 right-5 w-8 h-8 bg-white transform rotate-45  border-l-[2px] border-t-[2px] border-[#0c7489]"></div>
                   <div className="w-[468px] h-[550px] bg-white rounded-lg shadow-lg p-6 space-y-6 border-[2px] border-[#0c7489]">
         {/* عنوان الإعدادات */}
-        <img src={nonotification} alt=""  className="p-10"/>
+        <img src={nonotification} alt=""  className="w-full "/>
         {/* <h1 className="text-center text-lg font-bold">Settings</h1> */}
 
         
@@ -179,88 +175,39 @@ function AddCardPage() {
             </>
           )}
             <img
-              src={profile} //
+              src={doctorprofile} //
               alt="Profile Icon"
               className="w-[62px] h-[62px] rounded-full"
             />
           </div>
           </div>
-          <div className="flex justify-center items-center min-h-screen ">
-      <div className=" p-6   w-full mr-[50px] ml-[50px]">
-        {/* بطاقة الكريدت */}
-        <div className="rounded-lg text-white w-full relative">
-         
-            <img
-              src={Card}
-              alt="MasterCard"
-              className="w-full"
-            />
-          
+          <div className="min-h-screen flex flex-col md:flex-row">
+            {/* Left Section - Image */}
+      <div className="flex-1  flex items-center justify-center">
+        <div className="text-center px-4">
+          {/* Image */}
+          <h3 className=" font-poppins font-bold text-[80px] leading-[96px] text-left ml-[20px]">
+          Stroke<br/><span className="text-[#0c7489] font-poppins font-bold text-[80px] leading-[96px] text-left">Prediction.</span> </h3>
+          <p className="font-poppins text-[#1E1E1E]  text-[20px] leading-[34px] text-left ml-[20px] mt-[15px]" >Take control of your patients' health – review their stroke risk predictions now!</p>
+          <button
+            type="submit" onClick={() => navigate("/appointments")}
+            className="w-[300px] mt-10 bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
+            >
+            Appointments
+            </button>
+            <button
+            type="submit" onClick={() => navigate("/chatbot")}
+            className="w-[300px] mt-10 bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
+            >
+            ChatBot
+            </button>
         </div>
-
-        {/* إدخال بيانات البطاقة */}
-        <h3 className="text-md font-semibold mt-6 text-left">Enter card details</h3>
-        <div className="mt-4 space-y-7">
-          <input
-            type="text"
-            placeholder="Card name"
-            className="w-full p-2 border rounded"
-            value={cardName}
-            onChange={(e) => setCardName(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Card number"
-            className="w-full p-2 border rounded"
-            value={cardNumber}
-            onChange={(e) => setCardNumber(e.target.value)}
-          />
-          <div className="flex space-x-3">
-            <input
-              type="text"
-              placeholder="Expiry date"
-              className="w-1/2 p-2 border rounded"
-              value={expiryDate}
-              onChange={(e) => setExpiryDate(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="CVV"
-              className="w-1/2 p-2 border rounded"
-              value={cvv}
-              onChange={(e) => setCvv(e.target.value)}
-            />
-          </div>
         </div>
-
-        {/* الموافقة على الشروط */}
-        <div className="mt-4 space-y-2 text-sm">
-          <label className="flex items-center space-x-2  mt-[20px] mb-[10px]">
-            <input
-              type="checkbox"
-              checked={agreeTerms}
-              onChange={() => setAgreeTerms(!agreeTerms)}
-            />
-            <span>
-              I agree to the <span className="text-[#0C7489]">Terms and conditions</span>
-            </span>
-          </label>
-          <label className="flex items-center space-x-2 mt-[10px] mb-[30px]">
-            <input
-              type="checkbox"
-              checked={saveCard}
-              onChange={() => setSaveCard(!saveCard)}
-            />
-            <span>Save card details</span>
-          </label>
-        </div>
-
-        {/* زر الإضافة */}
-        <button onClick={() => navigate("/appointment")} className="w-full h-[46px] mt-[20px] bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
-          Add Card
-        </button>
-      </div>
+        {/* Right Section - Form */}
+        <div className="flex items-center justify-center min-h-screen  ">
+        <img src={doctor} alt="" />
     </div>
+          </div>
          
           </div>
           
@@ -270,4 +217,4 @@ function AddCardPage() {
       );
 }
 
-export default AddCardPage;
+export default HomeDoctor;

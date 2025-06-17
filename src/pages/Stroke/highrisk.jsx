@@ -1,4 +1,4 @@
-import highRisk from "../images/result1.svg"
+import highRisk from "../../images/result1.svg"
 import { useLocation } from "react-router-dom";
 const HighRisk = () => {
     const location = useLocation();

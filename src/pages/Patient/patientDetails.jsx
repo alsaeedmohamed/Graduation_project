@@ -1,15 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import profile from '../images/profile.svg';
-import ring from '../images/ring.svg';
-import search from '../images/search.svg';
-import settings from '../images/settings.svg';
-import patient from '../images/patient1.svg';
-import moon from '../images/moon.svg';
-import about from '../images/about.svg';
-import account from '../images/account.svg';
-import world from '../images/world.svg';
-import nonotification from '../images/nonotification.svg';
+import profile from '../../images/profile.svg';
+import ring from '../../images/ring.svg';
+import search from '../../images/search.svg';
+import settings from '../../images/settings.svg';
+import patient from '../../images/patient1.svg';
+import moon from '../../images/moon.svg';
+import about from '../../images/about.svg';
+import account from '../../images/account.svg';
+import world from '../../images/world.svg';
+import nonotification from '../../images/nonotification.svg';
 import{ useState } from 'react';
 import { useNavigate } from "react-router-dom";
 function PatientDetails() {

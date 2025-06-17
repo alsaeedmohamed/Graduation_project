@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Doctor from '../images/doctor2.svg';
+import Doctor from '../../images/doctor2.svg';
 
 function Drinfo() {
   const [selectedTime, setSelectedTime] = useState(null);

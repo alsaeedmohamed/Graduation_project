@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import patient1 from '../images/patient1.svg';
+import patient1 from '../../images/patient1.svg';
 
 
 function Appointments() {

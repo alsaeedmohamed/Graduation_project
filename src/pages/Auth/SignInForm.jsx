@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import signin from '../images/signin.svg';
+import signin from '../../images/signin.svg';
 import { FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'; // استيراد prop-types
