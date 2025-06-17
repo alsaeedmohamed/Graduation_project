@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import restpass from '../images/restpass.svg';
+import resetpass from '../images/restpass.svg';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,7 @@ const SignInForm = () => {
 
         // التنقل لصفحة تسجيل الدخول بعد ثانية
         setTimeout(() => {
-          navigate("/src/pages/SignInForm.jsx");
+          navigate("/login");
         }, 1000);
       } catch (err) {
         // التعامل مع الأخطاء من الـ API
@@ -80,7 +80,7 @@ const SignInForm = () => {
             Enter your new password and confirm it
           </h3>
           <img
-            src={restpass}
+            src={resetpass}
             width={344}
             height={372.58}
             className="mx-auto mt-10"

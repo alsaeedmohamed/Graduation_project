@@ -256,7 +256,7 @@ function AddCardPage() {
         </div>
 
         {/* زر الإضافة */}
-        <button onClick={() => navigate("/src/pages/appointment.jsx")} className="w-full h-[46px] mt-[20px] bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
+        <button onClick={() => navigate("/appointment")} className="w-full h-[46px] mt-[20px] bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
           Add Card
         </button>
       </div>

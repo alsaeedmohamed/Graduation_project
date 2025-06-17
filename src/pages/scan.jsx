@@ -40,7 +40,7 @@ const Scan = ({ setUploadedImage }) => {
 
         console.log("API Response:", response.data); // ✅ طباعة نتيجة الـ API
 
-        navigate("/src/pages/scaning.jsx", {
+        navigate("/scaning", {
           state: {
             image: URL.createObjectURL(selectedFile),
             result: response.data,
@@ -48,7 +48,7 @@ const Scan = ({ setUploadedImage }) => {
         });
       } catch (error) {
         console.error("Error uploading image:", error);
-        navigate("/src/pages/scaning.jsx", {
+        navigate("/scaning", {
           state: {
             image: URL.createObjectURL(selectedFile),
             result: { error: "فشل التحليل" },

@@ -13,7 +13,7 @@ function Drinfo() {
   const dates = ["Sun 4", "Mon 5", "Tue 6"];
 
   const handleNavigate = () => {
-    navigate("/src/pages/paymentpage.jsx");
+    navigate("/payment");
   };
 
   return (

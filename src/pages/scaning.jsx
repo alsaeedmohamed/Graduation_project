@@ -32,7 +32,7 @@ const Scanning = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       console.log("Navigating to ScanResult with:", { image: uploadedImage, resultDetails: result });
-      navigate("/src/pages/ScanResult.jsx", {
+      navigate("/scan-result", {
         state: { image: uploadedImage, resultDetails: result },
       });
     }, 5000);

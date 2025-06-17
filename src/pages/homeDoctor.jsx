@@ -190,13 +190,13 @@ function HomeDoctor() {
           Stroke<br/><span className="text-[#0c7489] font-poppins font-bold text-[80px] leading-[96px] text-left">Prediction.</span> </h3>
           <p className="font-poppins text-[#1E1E1E]  text-[20px] leading-[34px] text-left ml-[20px] mt-[15px]" >Take control of your patients' health – review their stroke risk predictions now!</p>
           <button
-            type="submit" onClick={() => navigate("/src/pages/appointments.jsx")}
+            type="submit" onClick={() => navigate("/appointments")}
             className="w-[300px] mt-10 bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
             >
             Appointments
             </button>
             <button
-            type="submit" onClick={() => navigate("/src/pages/ChatBotPage.jsx")}
+            type="submit" onClick={() => navigate("/chatbot")}
             className="w-[300px] mt-10 bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
             >
             ChatBot

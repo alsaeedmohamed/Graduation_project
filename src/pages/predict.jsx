@@ -104,9 +104,9 @@ function Prediction() {
       const { probability } = response.data;
 
       if (probability > 0.5) {
-        navigate("/src/pages/highrisk.jsx", { state: { probability } });
+        navigate("/high-risk", { state: { probability } });
       } else {
-        navigate("/src/pages/lowrisk.jsx", { state: { probability } });
+        navigate("/low-risk", { state: { probability } });
       }
     } catch (error) {
       console.error("Error during prediction:", error);

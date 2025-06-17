@@ -18,32 +18,32 @@ const Header = () => {
         </div>
         <nav>
           <ul className="flex space-x-4">
-            <li><Link to="/src/pages/HomePatient.jsx" onClick={() => handleButtonClick("home")}
+            <li><Link to="/" onClick={() => handleButtonClick("home")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "home"
                 ? "bg-[#095b6a] text-white"
                 : "text-gray-800 ]"
             }`}>Home</Link></li>
-            <li><Link to="/src/pages/services.jsx" onClick={() => handleButtonClick("services")}
+            <li><Link to="/services" onClick={() => handleButtonClick("services")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "services"
                 ? "bg-[#095b6a] text-white"
                 : "text-gray-800 ]"
             }`}>Services</Link></li>
             
-            <li><Link to="/src/pages/findDoctors.jsx" onClick={() => handleButtonClick("findDoctors")}
+            <li><Link to="/doctors" onClick={() => handleButtonClick("findDoctors")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "findDoctors"
                 ? "bg-[#095b6a] text-white"
                 : "text-gray-800 ]"
             }`}>Find Doctors</Link></li>
-            <li><Link to="/src/pages/aboutUs.jsx" onClick={() => handleButtonClick("about")}
+            <li><Link to="/about-us" onClick={() => handleButtonClick("about")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "about"
                 ? "bg-[#095b6a] text-white"
                 : "text-gray-800 ]"
             }`}>About Us</Link></li>
-            <li><Link to="/src/pages/contactUs.jsx" onClick={() => handleButtonClick("contact")}
+            <li><Link to="/contact-us" onClick={() => handleButtonClick("contact")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "contact"
                 ? "bg-[#095b6a] text-white"
@@ -53,7 +53,7 @@ const Header = () => {
         </nav>
         <div>
           <Link
-            to="/src/pages/SelectRole.jsx"
+            to="/register"
             onClick={() => handleButtonClick("signup")}
             className={`px-4 py-2 rounded transition duration-200 ${
               activeButton === "signup"
@@ -64,7 +64,7 @@ const Header = () => {
             Sign Up
           </Link>
           <Link
-            to="/src/pages/SignInForm.jsx"
+            to="/login"
             onClick={() => handleButtonClick("login")}
             className={`text-sm px-4 py-2 rounded mr-4 transition duration-200 ${
               activeButton === "login"

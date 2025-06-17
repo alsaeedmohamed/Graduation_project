@@ -48,13 +48,13 @@ const LoggedInNavbar = () => {
 
       // لو الطلب نجح، احذف التوكن وانقلني لصفحة الـ SignInForm
       localStorage.removeItem('token');
-      navigate('/src/pages/SignInForm.jsx'); // هنا بيرجع للـ Header العادي
+      navigate('/login'); // هنا بيرجع للـ Header العادي
       setIsSettingsOpen(false);
     } catch (error) {
       // لو حصل خطأ، اطبع الخطأ في الكونسول واحذف التوكن وانقلني بردو
       console.error('Logout failed:', error);
       localStorage.removeItem('token');
-      navigate('/src/pages/SignInForm.jsx'); // هنا بيرجع للـ Header العادي
+      navigate('/login'); // هنا بيرجع للـ Header العادي
       setIsSettingsOpen(false);
     }
   };
@@ -73,7 +73,7 @@ const LoggedInNavbar = () => {
           <ul className="flex space-x-3">
             <li>
               <Link
-                to="/src/pages/HomePatient.jsx"
+                to="/"
                 onClick={() => handleButtonClick("home")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "home" ? "bg-[#095b6a] text-white" : "text-gray-800"
@@ -84,7 +84,7 @@ const LoggedInNavbar = () => {
             </li>
             <li>
               <Link
-                to="/src/pages/services.jsx"
+                to="/services"
                 onClick={() => handleButtonClick("services")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "services" ? "bg-[#095b6a] text-white" : "text-gray-800"
@@ -95,7 +95,7 @@ const LoggedInNavbar = () => {
             </li>
             <li>
               <Link
-                to="/src/pages/findDoctors.jsx"
+                to="/doctors"
                 onClick={() => handleButtonClick("findDoctors")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "findDoctors" ? "bg-[#095b6a] text-white" : "text-gray-800"
@@ -106,7 +106,7 @@ const LoggedInNavbar = () => {
             </li>
             <li>
               <Link
-                to="/src/pages/aboutUs.jsx"
+                to="/about-us"
                 onClick={() => handleButtonClick("about")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "about" ? "bg-[#095b6a] text-white" : "text-gray-800"
@@ -117,7 +117,7 @@ const LoggedInNavbar = () => {
             </li>
             <li>
               <Link
-                to="/src/pages/contactUs.jsx"
+                to="/contact-us"
                 onClick={() => handleButtonClick("contact")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "contact" ? "bg-[#095b6a] text-white" : "text-gray-800"

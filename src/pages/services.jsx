@@ -26,7 +26,7 @@ function Services() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {/* Box 1 */}
           <div
-            onClick={() => navigate("/src/pages/scan.jsx")}
+            onClick={() => navigate("/scan")}
             className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center"
           >
             <div className="w-full bg-white rounded-md h-full flex items-center justify-center">
@@ -38,7 +38,7 @@ function Services() {
 
           {/* Box 2 */}
           <div
-            onClick={() => navigate("/src/pages/predict.jsx")}
+            onClick={() => navigate("/predict")}
             className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center"
           >
             <div className="w-full bg-white rounded-md h-full flex items-center justify-center">
@@ -50,7 +50,7 @@ function Services() {
 
           {/* Box 3 */}
           <div
-            onClick={() => navigate("/src/pages/ChatBotPage.jsx")}
+            onClick={() => navigate("/chatbot")}
             className="bg-blue-100 transition-all duration-300 ease-in-out hover:shadow-2xl hover:scale-105 border-[1.5px] border-[#0c7489] rounded-md w-60 h-72 flex flex-col items-center justify-center"
           >
             <div className="w-full bg-white rounded-md h-full flex items-center justify-center">

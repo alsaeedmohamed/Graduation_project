@@ -30,7 +30,7 @@ function SignInForm() {
         
         // التنقل لصفحة إعادة تعيين كلمة المرور بعد ثانية
         setTimeout(() => {
-          navigate("/src/pages/RestPass.jsx");
+          navigate("/reset-password");
         }, 1000);
       } catch (err) {
         // التعامل مع الأخطاء من الـ API

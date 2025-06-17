@@ -11,9 +11,9 @@ function RoleSelectionPage() {
   };
 
   const getLinkPath = () => {
-    if (selectedRole === "doctor") return "/src/pages/SignUpDoctor.jsx";
-    if (selectedRole === "patient") return "/src/pages/SignUpForm.jsx";
-    if (selectedRole === "amenities") return "/src/pages/SignUpForm.jsx";
+    if (selectedRole === "doctor") return "/doctors/register";
+    if (selectedRole === "patient") return "/patients/register";
+    // if (selectedRole === "amenities") return "/src/pages/SignUpForm.jsx";
     return "#";
   };
   return (

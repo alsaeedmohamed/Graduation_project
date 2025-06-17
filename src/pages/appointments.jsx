@@ -9,7 +9,7 @@ function Appointments() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/src/pages/patientDetails.jsx");
+    navigate("/patient-details");
   };
 
   return (

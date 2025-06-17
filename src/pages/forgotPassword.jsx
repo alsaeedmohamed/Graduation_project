@@ -30,7 +30,7 @@ function SignInForm() {
         
         // التنقل لصفحة التحقق بعد ثانية
         setTimeout(() => {
-          navigate("/src/pages/Verify.jsx");
+          navigate("/verify-otp");
         }, 1000);
       } catch (err) {
         // التعامل مع الأخطاء من الـ API

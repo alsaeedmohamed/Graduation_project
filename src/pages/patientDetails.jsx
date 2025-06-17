@@ -21,7 +21,7 @@ function PatientDetails() {
   const dates = ["Sun 4", "Mon 5", "Tue 6"];
 
   const handleNavigate = () => {
-    navigate("/src/pages/patientReport.jsx"); // استبدلي "/confirmation" بالمسار المطلوب
+    navigate("/patient-report"); // استبدلي "/confirmation" بالمسار المطلوب
   };
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);

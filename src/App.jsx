@@ -5,9 +5,9 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import SignUpForm from './pages/SignUpForm';
 import SignInForm from './pages/SignInForm';
-import Rest from './pages/Rest';
+import ForgotPassword from './pages/forgotPassword';
 import Verify from './pages/Verify';
-import RestPass from './pages/RestPass';
+import ResetPass from './pages/ResetPass';
 import HomePatient from "./pages/Homepatient";
 import Services from './pages/services';
 import Scan from './pages/scan';
@@ -54,39 +54,39 @@ function App() {
 
         <main style={{ minHeight: "80vh" }}>
           <Routes>
-            <Route path="/src/pages/SignInForm.jsx" element={<SignInForm onLogin={handleLogin} />} />
-            <Route path="/src/pages/SignUpForm.jsx" element={<SignUpForm />} />
-            <Route path="/src/pages/Rest.jsx" element={<Rest />} />
-            <Route path="/src/pages/Verify.jsx" element={<Verify />} />
-            <Route path="/src/pages/RestPass.jsx" element={<RestPass />} />
-            <Route path="/src/pages/HomePatient.jsx" element={<HomePatient />} />
-            <Route path="/src/pages/services.jsx" element={<Services />} />
-            <Route path="/src/pages/SelectRole.jsx" element={<RoleSelectionPage />} />
-            <Route path="/src/pages/SignUpDoctor.jsx" element={<SignUpDoctor />} />
-            <Route path="/src/pages/ChatBotPage.jsx" element={<ChatBotPage />} />
-            <Route path="/src/pages/predict.jsx" element={<Prediction />} />
-            <Route path="/src/pages/highrisk.jsx" element={<HighRisk />} />
-            <Route path="/src/pages/lowrisk.jsx" element={<LowRisk />} />
-            <Route path="/src/pages/findDoctors.jsx" element={<FindDoctors />} />
-            <Route path="/src/pages/drinfo.jsx" element={<Drinfo />} />
-            <Route path="/src/pages/paymentpage.jsx" element={<PaymentPage />} />
-            <Route path="/src/pages/addcardpage.jsx" element={<AddCardPage />} />
-            <Route path="/src/pages/appointment.jsx" element={<Appointment />} />
-            <Route path="/src/pages/contactUs.jsx" element={<Contact />} />
-            <Route path="/src/pages/aboutUs.jsx" element={<AboutUs />} />
-            <Route path="/src/pages/homeDoctor.jsx" element={<HomeDoctor />} />
-            <Route path="/src/pages/appointments.jsx" element={<Appointments />} />
-            <Route path="/src/pages/patientDetails.jsx" element={<PatientDetails />} />
-            <Route path="/src/pages/patientReport.jsx" element={<PatientReport />} />
-            <Route path="/src/pages/ScanResult.jsx" element={<ScanResult />} />
+            <Route path="/register" element={<RoleSelectionPage />} />
+            <Route path="/patients/register" element={<SignUpForm />} />
+            <Route path="/doctors/register" element={<SignUpDoctor />} />
+            <Route path="/login" element={<SignInForm onLogin={handleLogin} />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verify-otp" element={<Verify />} />
+            <Route path="/reset-password" element={<ResetPass />} />
+            <Route path="/" element={<HomePatient />} />
+            <Route path="/patient-details" element={<PatientDetails />} />
+            <Route path="/patient-report" element={<PatientReport />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/add-card" element={<AddCardPage />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/chatbot.jsx" element={<ChatBotPage />} />
+            <Route path="/predict" element={<Prediction />} />
+            <Route path="/high-risk" element={<HighRisk />} />
+            <Route path="/low-risk" element={<LowRisk />} />
+            <Route path="/scan-result" element={<ScanResult />} />
             <Route
-              path="/src/pages/scan.jsx"
+              path="/scan"
               element={<Scan setUploadedImage={setUploadedImage} />}
             />
             <Route
-              path="/src/pages/scaning.jsx"
+              path="/scaning"
               element={<Scanning uploadedImage={uploadedImage} />}
             />
+            <Route path="/appointments" element={<Appointments />} />
+            <Route path="/appointment" element={<Appointment />} />
+            <Route path="/doctors" element={<FindDoctors />} />
+            <Route path="/doctor" element={<Drinfo />} />
+            <Route path="/doctors/home" element={<HomeDoctor />} />
+            <Route path="/contact-us" element={<Contact />} />
+            <Route path="/about-us" element={<AboutUs />} />
           </Routes>
         </main>
         <Footer />

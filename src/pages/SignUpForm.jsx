@@ -100,7 +100,7 @@ function SignUpForm() {
 
         // التحقق من نجاح الـ API
         if (response.status === 201) {
-          navigate("/src/pages/SignInForm.jsx");
+          navigate("/login");
         }
       } catch (error) {
         alert(

@@ -35,7 +35,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
     }
 
     try {
-      const response = await axios.post("https://neuroguard-api.onrender.com//api/v1/auth/login", {
+      const response = await axios.post("https://neuroguard-api.onrender.com/api/v1/auth/login", {
         email,
         password,
       }, {
@@ -48,7 +48,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
           onLogin(); // ده بيغير isLoggedIn لـ true
         }
         // Redirect لصفحة HomePatient بعد النجاح
-        navigate("/src/pages/HomePatient.jsx");
+        navigate("/");
       }
     } catch (err) {
       setError(err.response?.data?.message || "حدث خطأ أثناء تسجيل الدخول.");
@@ -113,7 +113,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
                 required
               />
               <div className="text-right mt-1">
-                <Link to="/src/pages/Rest.jsx" className="text-[#0066D8] hover:underline">Forgot Password?</Link>
+                <Link to="/forgot-password" className="text-[#0066D8] hover:underline">Forgot Password?</Link>
               </div>
             </div>
 
@@ -145,7 +145,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
           {/* Sign Up Link */}
           <p className="text-gray-600 text-sm text-center mt-6">
             Do not have an account?{' '}
-            <Link to="/src/pages/SelectRole.jsx" className="text-[#0066D8] hover:underline">Sign Up</Link>
+            <Link to="/register" className="text-[#0066D8] hover:underline">Sign Up</Link>
           </p>
         </div>
       </div>

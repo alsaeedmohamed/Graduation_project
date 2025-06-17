@@ -27,7 +27,7 @@ console.log("ScanResult location state:", location.state);
       </div>
       <button
         className="mt-6 bg-[#0c7489] text-white px-6 py-2 rounded-lg"
-        onClick={() => navigate("/src/pages/scan.jsx")}
+        onClick={() => navigate("/scan")}
       >
         Scan Another
       </button>

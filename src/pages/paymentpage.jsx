@@ -237,7 +237,7 @@ function PaymentPage() {
         </div>
 
         {/* Confirm Button */}
-        <button onClick={() => navigate("/src/pages/addcardpage.jsx")} className="w-full bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
+        <button onClick={() => navigate("/add-card")} className="w-full bg-[#0C7489] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300">
           Confirm
         </button>
       </div>
