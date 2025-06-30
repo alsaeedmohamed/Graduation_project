@@ -35,12 +35,15 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
     }
 
     try {
-      const response = await axios.post("https://neuroguard-api.onrender.com/api/v1/auth/login", {
+        const response = await axios.post("https://neuroguard-api.onrender.com/api/v1/auth/login", 
+         {
         email,
         password,
       }, {
         withCredentials: true,
       });
+
+      console.log(response.status)
 
       if (response.status === 200) {
         // استدعاء onLogin لتغيير حالة isLoggedIn في App.jsx

@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Import Axios for API requests
+import axios from "axios";
 import predict from "../../images/predict.svg";
 
-// List of questions used in the form
 const questions = [
   { id: 1, question: "What is your age?", type: "number" },
   { id: 2, question: "Do you have hypertension?", type: "dropdown", options: ["0", "1"] },
@@ -20,12 +19,11 @@ const questions = [
 
 function Prediction() {
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
-  const [answers, setAnswers] = useState({}); // Store user answers
-  const [error, setError] = useState(false); // Error state
-  const [loading, setLoading] = useState(false); // Loading state during API request
+  const [currentStep, setCurrentStep] = useState(1);
+  const [answers, setAnswers] = useState({});
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  // Move to the next question
   const handleNext = () => {
     if (!answers[currentStep] && answers[currentStep] !== 0) {
       setError(true);
@@ -35,7 +33,6 @@ function Prediction() {
     }
   };
 
-  // Go back to the previous question
   const handleBack = () => {
     setError(false);
     if (currentStep > 1) {
@@ -43,7 +40,6 @@ function Prediction() {
     }
   };
 
-  // Update answers when inputs change
   const handleInputChange = (e) => {
     setAnswers({
       ...answers,
@@ -52,7 +48,6 @@ function Prediction() {
     setError(false);
   };
 
-  // Increment value for numeric questions
   const handleIncrement = () => {
     setAnswers({
       ...answers,
@@ -61,7 +56,6 @@ function Prediction() {
     setError(false);
   };
 
-  // Decrement value for numeric questions
   const handleDecrement = () => {
     setAnswers({
       ...answers,
@@ -70,11 +64,9 @@ function Prediction() {
     setError(false);
   };
 
-  // Send data to API and predict
   const handlePredict = async () => {
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
-      // Format answers to match API expectations
       const formattedAnswers = {
         age: answers[1],
         hypertension: answers[2],
@@ -84,29 +76,31 @@ function Prediction() {
         gender: answers[6],
         ever_married: answers[7],
         work_type: answers[8],
-        residence_type: answers[9],
+        Residence_type: answers[9],
         smoking_status: answers[10]
       };
 
       console.log("Formatted Answers:", JSON.stringify(formattedAnswers));
 
       const response = await axios.post(
-        "http://localhost:4000/api/v1/storke/predict",
+        "http://127.0.0.1:8000/predict",
         formattedAnswers,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true,
         }
       );
+  
+      const { stroke_probability, Instructions } = response.data;
+       console.log(" stroke_probability raw:", stroke_probability);
+      const probability = stroke_probability / 100;
 
-      const { probability } = response.data;
 
       if (probability > 0.5) {
-        navigate("/high-risk", { state: { probability } });
+        navigate("/high-risk", { state: { probability, instructions: Instructions } });
       } else {
-        navigate("/low-risk", { state: { probability } });
+        navigate("/low-risk", { state: { probability, instructions: Instructions } });
       }
     } catch (error) {
       console.error("Error during prediction:", error);
@@ -118,7 +112,6 @@ function Prediction() {
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Left Section - Image */}
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center px-4">
           <h3 className="text-2xl font-poppins font-bold text-gray-900 mt-6 text-left">
@@ -131,7 +124,6 @@ function Prediction() {
         </div>
       </div>
 
-      {/* Right Section - Form */}
       <div className="flex flex-col items-center justify-center min-h-screen p-4">
         <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
           <h1 className="text-2xl font-bold mb-2 text-center">Predict your stroke risk now!</h1>
@@ -154,11 +146,20 @@ function Prediction() {
               }}
             >
               <option value="" className="text-gray-400">Select an option</option>
-              {questions[currentStep - 1].options.map((option, index) => (
-                <option key={index} value={option}>
-                  {option}
-                </option>
-              ))}
+              {questions[currentStep - 1].options.map((option, index) => {
+                let label = option;
+                if (
+                  (questions[currentStep - 1].id === 2 || questions[currentStep - 1].id === 3)
+                ) {
+                  if (option === "1") label = "Yes";
+                  else if (option === "0") label = "No";
+                }
+                return (
+                  <option key={index} value={option}>
+                    {label}
+                  </option>
+                );
+              })}
             </select>
           ) : (
             <div className="flex items-center border rounded-lg p-3 mb-3">

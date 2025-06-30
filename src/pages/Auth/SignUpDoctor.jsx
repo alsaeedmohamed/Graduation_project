@@ -43,6 +43,7 @@ function SignUpDoctor() {
       try {
         const response = await axios.post(
           "https://neuroguard-api.onrender.com/api/v1/doctors/register",
+          // https//neuroguard-api.onrender.com/api/v1/doctors/
           {
             firstName,
             lastName,
