@@ -39,10 +39,10 @@ const LoggedInNavbar = () => {
   const handleLogout = async () => {
     try {
       // إرسال طلب POST للـ API مع withCredentials
-      await axios.post('http://localhost:4000/api/v1/auth/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
+      await axios.get('http://localhost:4000/api/v1/auth/logout', {
+        // headers: {
+        //   Authorization: `Bearer ${localStorage.getItem('token')}`
+        // },
         withCredentials: true,
       });
 

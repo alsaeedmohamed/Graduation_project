@@ -35,8 +35,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
     }
 
     try {
-        const response = await axios.post("https://neuroguard-api.onrender.com/api/v1/auth/login", 
-         {
+      const response = await axios.post("https://neuroguard-api.onrender.com/api/v1/auth/login", {
         email,
         password,
       }, {
