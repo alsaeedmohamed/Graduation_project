@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Doctor from '../../images/doctor2.svg';
+import axios from "axios";
 
 function Drinfo() {
   const [selectedTime, setSelectedTime] = useState(null);
@@ -15,6 +16,37 @@ function Drinfo() {
   const handleNavigate = () => {
     navigate("/payment");
   };
+
+  const doctorId = "6849e64592b50735c90a883e";
+  const getSchedule = async (docId, date) => {
+    try {
+      const response = await axios.get(
+        `https://neuroguard-api.onrender.com/api/v1/doctors/${docId}/schedule/${date}`,
+      );
+      const availabe = response.data.data.availabeHours;
+      console.log(availabe);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getSchedule(doctorId, "2025-07-05");
+  
+  const bookAppointment = async (docId) => {
+    try {
+      const response = await axios.post(
+        "https://neuroguard-api.onrender.com/api/v1/appointments/",
+        {
+          doctorId: docId, // doctor id: doctorObject._id
+          startTime: "2025-07-03T14:00:00+03:00", // date: 2025-05-22 || time: T11:00:00  || timeZone: +03:00
+        },
+        { withCredentials: true },
+      );
+      console.log(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  bookAppointment(doctorId)
 
   return (
     <div>

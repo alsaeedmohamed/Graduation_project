@@ -56,7 +56,7 @@ function SignUpDoctor() {
             address,
             nationalId,
             academicYear,
-          
+            specialization: "Neurologist"          
           }
         );
 
