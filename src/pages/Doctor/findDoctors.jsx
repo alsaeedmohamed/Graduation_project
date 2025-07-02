@@ -18,6 +18,7 @@ function FindDoctors() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
+        // const response = await axios.get("https://neuroguard-api.onrender.com/api/v1/doctors?limit=30"); // Replace with your API endpoint
         const response = await axios.get("http://localhost:4000/api/v1/doctors?limit=30"); // Replace with your API endpoint
 
         if (!response.status == 200) {
@@ -35,9 +36,15 @@ function FindDoctors() {
   }, []);
 
   // Navigate to doctor info page
-  const handleNavigate = () => {
-    navigate("/doctor");
+  const handleNavigate =  (docId) => {
+    navigate('/doctor', { 
+      state: { id: docId } 
+    });
   };
+
+  // () => {
+  //   navigate("/doctor");
+  // };
 
   // Handle navigation to the next set of doctors
   const handleNext = () => {
@@ -130,7 +137,7 @@ function FindDoctors() {
                 </div>
               </div>
               <button
-                onClick={handleNavigate}
+                onClick={()=>handleNavigate(doctor._id)}
                 disabled={doctors.length === 0} // Disable button if no real data
                 className="font-poppins bg-[#0C7489] w-full text-white px-4 py-2 rounded mt-4 hover:bg-[#065a67] transition duration-300 disabled:opacity-50"
               >
