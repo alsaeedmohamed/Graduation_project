@@ -1,6 +1,7 @@
 // FindDoctors.jsx
 // eslint-disable-next-line no-unused-vars
 import axios from "axios";
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,8 +19,8 @@ function FindDoctors() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        // const response = await axios.get("https://neuroguard-api.onrender.com/api/v1/doctors?limit=30"); // Replace with your API endpoint
-        const response = await axios.get("http://localhost:4000/api/v1/doctors?limit=30"); // Replace with your API endpoint
+         const response = await axios.get("https://neuroguard-api.onrender.com/api/v1/doctors?limit=30"); // Replace with your API endpoint
+        //const response = await axios.get("http://localhost:4000/api/v1/doctors?limit=30"); // Replace with your API endpoint
 
         if (!response.status == 200) {
           throw new Error("Failed to fetch doctors");
