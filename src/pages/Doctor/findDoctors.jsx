@@ -128,11 +128,11 @@ function FindDoctors() {
               <div className="flex items-center text-gray-600 text-sm mt-2">
                 <div className="flex items-center mr-4">
                   <span className="text-yellow-500 mr-1">{doctor.rating}</span>
-                  {doctor.rating !== "N/A" && <span>⭐️</span>}
+                  {doctor.rating !== "N/A" && <span>4.8 ⭐️</span>}
                 </div>
                 <div className="flex items-center">
                   {doctor.schedule !== "N/A" && (
-                    <span className="material-icons mr-1">schedule</span>
+                    <span className="material-icons mr-1"></span>
                   )}
                   <span>{doctor.schedule}</span>
                 </div>
