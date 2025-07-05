@@ -1,15 +1,33 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useRef, useEffect } from 'react';
-import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Paperclip, Send } from 'lucide-react';
+import axios from 'axios';
+
+
+const formatText = (text) => {
+  let formatted = text
+    .replace(/([.!?])(?=[A-Z])/g, '$1 ') // إضافة مسافة بعد النقاط أو علامات التعجب
+    .replace(/([,])(?=\w)/g, '$1 ') // إضافة مسافة بعد الفواصل
+    .replace(/\s+/g, ' ') // تقليل المسافات المتكررة إلى مسافة واحدة
+    .replace(/\\n/g, '\n'); // التعامل مع الأسطر الجديدة
+  formatted = formatted.replace(/\. /g, '.\n'); // تقسيم الجمل عند النقطة
+  // إزالة * زيادة داخل رأس الجدول (إذا كان هذا التنسيق مطلوبًا)
+  formatted = formatted.replace(/\*\s*([^ ].*?)\s*\*(?=\s*\|)/g, '$1');
+  // هذا السطر قد يكون مفيدًا أو لا حسب طبيعة النص الخام، يمكن إبقائه أو إزالته حسب الحاجة
+  formatted = formatted.replace(/(\w)(for|to|the|of|and)([A-Z])/g, '$1 $2 $3');
+  return formatted.trim();
+};
 
 function ChatBotPage() {
   const [user_input, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [sessionId, setSessionId] = useState(uuidv4());
   const fileInputRef = useRef(null);
   const bottomRef = useRef(null);
+  const messageBuffer = useRef('');
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -20,27 +38,65 @@ function ChatBotPage() {
     if (!input.trim()) return;
 
     const userMessage = { text: input, sender: 'user' };
-    setMessages((prev) => [...prev, userMessage, { text: '...', sender: 'bot', loading: true }]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
 
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/v1/storke/chat',
-        { user_input: input },
-        { withCredentials: true }
-      );
+      const response = await fetch('http://127.0.0.1:8000/chat/stream/', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          input: input,
+          session_id: sessionId,
+        }),
+      });
 
-      let botResponse = response.data.response;
-      botResponse = botResponse.replace(/\\n/g, '\n');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
+      const reader = response.body.getReader();
+      messageBuffer.current = '';
+
+      // إضافة رسالة البوت الفارغة لاستقبال التحديثات
+      setMessages((prev) => [...prev, { text: '', sender: 'bot' }]);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = new TextDecoder().decode(value);
+        const lines = chunk.split('\n');
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const content = line.slice(6).trim();
+            if (content && content !== '[DONE]') {
+              messageBuffer.current += content;
+              // استخدام دالة التنسيق المعدلة
+              const formattedResponse = formatText(messageBuffer.current);
+              setMessages((prev) => [
+                ...prev.slice(0, -1), // إزالة آخر رسالة (الفارغة أو القديمة)
+                { text: formattedResponse, sender: 'bot' }, // إضافة الرسالة المحدثة
+              ]);
+            }
+          }
+        }
+      }
+
+      // التأكد من عرض آخر جزء متبقي في الـ buffer بعد انتهاء الـ stream
+      const finalFormattedResponse = formatText(messageBuffer.current);
       setMessages((prev) => [
-        ...prev.filter((msg) => !msg.loading),
-        { text: botResponse, sender: 'bot' },
+        ...prev.slice(0, -1),
+        { text: finalFormattedResponse, sender: 'bot' },
       ]);
+
     } catch (error) {
-      console.error('Error sending message to API:', error);
+      console.error('Error streaming message from API:', error);
       setMessages((prev) => [
-        ...prev.filter((msg) => !msg.loading),
+        ...prev,
         { text: 'Error: Could not connect to the server', sender: 'bot' },
       ]);
     }
@@ -52,6 +108,7 @@ function ChatBotPage() {
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('session_id', sessionId); // إضافة session_id للـ form data
 
     setMessages((prev) => [
       ...prev,
@@ -60,7 +117,7 @@ function ChatBotPage() {
 
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/v1/storke/upload',
+        'http://localhost:8000/pdf/upload',
         formData,
         {
           headers: {
@@ -74,7 +131,7 @@ function ChatBotPage() {
 
       setMessages((prev) => [
         ...prev,
-        { text: `✅ File processed: ${result}`, sender: 'bot' },
+        { text: `✅ File processed: ${JSON.stringify(result)}`, sender: 'bot' },
       ]);
     } catch (error) {
       console.error('Upload error:', error);
@@ -87,8 +144,6 @@ function ChatBotPage() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50 relative">
-
-      {/* Welcome message overlay */}
       {user_input.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
           <h1 className="text-2xl sm:text-3xl font-semibold text-blue-500 text-center">
@@ -96,8 +151,6 @@ function ChatBotPage() {
           </h1>
         </div>
       )}
-
-      {/* Chat messages */}
       <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-32 z-0">
         {user_input.map((msg, index) => (
           <div
@@ -109,40 +162,42 @@ function ChatBotPage() {
             } whitespace-pre-wrap overflow-x-auto`}
           >
             {msg.sender === 'bot' ? (
-              msg.loading ? (
-                '⌛ Thinking...'
-              ) : (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    table: ({ node, ...props }) => (
-                      <div className="overflow-x-auto">
-                        <table
-                          className="table-auto border-collapse border border-gray-400 w-full text-sm"
-                          {...props}
-                        />
-                      </div>
-                    ),
-                    th: ({ node, ...props }) => (
-                      <th
-                        className="border border-gray-400 bg-gray-300 px-4 py-2 text-left"
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  table: ({ node, ...props }) => (
+                    <div className="overflow-x-auto my-2">
+                      <table
+                        className="table-auto border-collapse border border-gray-400 w-full text-sm"
                         {...props}
                       />
-                    ),
-                    td: ({ node, ...props }) => (
-                      <td
-                        className="border border-gray-400 px-4 py-2"
-                        {...props}
-                      />
-                    ),
-                    tr: ({ node, ...props }) => (
-                      <tr className="odd:bg-white even:bg-gray-100" {...props} />
-                    ),
-                  }}
-                >
-                  {msg.text}
-                </ReactMarkdown>
-              )
+                    </div>
+                  ),
+                  th: ({ node, ...props }) => (
+                    <th
+                      className="border border-gray-400 bg-gray-300 px-4 py-2 text-left font-semibold"
+                      {...props}
+                    />
+                  ),
+                  td: ({ node, ...props }) => (
+                    <td
+                      className="border border-gray-400 px-4 py-2"
+                      {...props}
+                    />
+                  ),
+                  tr: ({ node, ...props }) => (
+                    <tr className="odd:bg-white even:bg-gray-100" {...props} />
+                  ),
+                  ul: ({ node, ...props }) => (
+                    <ul className="list-disc list-inside my-2" {...props} />
+                  ),
+                  li: ({ node, ...props }) => (
+                    <li className="ml-4" {...props} />
+                  ),
+                }}
+              >
+                {msg.text}
+              </ReactMarkdown>
             ) : (
               msg.text
             )}
@@ -150,8 +205,6 @@ function ChatBotPage() {
         ))}
         <div ref={bottomRef} />
       </div>
-
-      {/* Input + File Upload + Send */}
       <form onSubmit={handleSend} className="sticky bottom-4 bg-white px-4 py-3 z-20">
         <div className="flex items-center gap-2">
           <input
