@@ -14,7 +14,7 @@ import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 
-const LoggedInNavbar = ({ onLogout }) => {
+const LoggedInNavbar = ({ user, onLogout }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -279,8 +279,8 @@ const LoggedInNavbar = ({ onLogout }) => {
 
           {/* Profile Picture */}
           <img
-            // src={user.profileImg}
-            src={profile}
+            src={user.profileImg}
+            // src={profile}
             alt="Profile Icon"
             className="h-12 w-12 rounded-full border border-gray-300 hover:shadow-md cursor-pointer"
           />
