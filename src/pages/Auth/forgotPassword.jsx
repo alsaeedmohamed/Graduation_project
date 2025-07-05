@@ -20,7 +20,8 @@ function SignInForm() {
       try {
         // إرسال طلب POST للـ API
         // eslint-disable-next-line no-unused-vars
-        const response = await axios.post('http://localhost:4000/api/v1/auth/forgot-password', {
+        // const response = await axios.post('http://localhost:4000/api/v1/auth/forgot-password', {
+        const response = await axios.post('https://neuroguard-api.onrender.com/api/v1/auth/forgot-password', {
           email: email // إرسال الإيميل للـ API
         },{withCredentials:true});
 

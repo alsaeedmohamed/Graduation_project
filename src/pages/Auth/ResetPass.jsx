@@ -30,7 +30,8 @@ const SignInForm = () => {
       try {
         // إرسال طلب POST للـ API
         // eslint-disable-next-line no-unused-vars
-        const response = await axios.patch('http://localhost:4000/api/v1/auth/reset-password', {
+        // const response = await axios.patch('http://localhost:4000/api/v1/auth/reset-password', {
+        const response = await axios.patch('https://neuroguard-api.onrender.com/api/v1/auth/reset-password', {
           newPassword: password,
           confirmNewPassword: confirmPassword
         }, {withCredentials: true});

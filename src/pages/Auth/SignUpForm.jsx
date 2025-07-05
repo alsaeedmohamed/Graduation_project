@@ -94,7 +94,8 @@ function SignUpForm() {
 
         // إرسال الداتا للـ API باستخدام Axios
         const response = await axios.post(
-          "http://localhost:4000/api/v1/patients/register",
+          // "http://localhost:4000/api/v1/patients/register",
+          "https://neuroguard-api.onrender.com/api/v1/patients/register",
           formData
         );
 

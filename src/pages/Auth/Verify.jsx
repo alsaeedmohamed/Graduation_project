@@ -20,7 +20,8 @@ function SignInForm() {
     if (code.length === 4) {
       try {
         // eslint-disable-next-line no-unused-vars
-        const response = await axios.post('http://localhost:4000/api/v1/auth/verify-otp', {
+        // const response = await axios.post('http://localhost:4000/api/v1/auth/verify-otp', {
+        const response = await axios.post('https://neuroguard-api.onrender.com/api/v1/auth/verify-otp', {
           otp:  code // إرسال الـ OTP للـ API
         } ,{withCredentials: true});
 
