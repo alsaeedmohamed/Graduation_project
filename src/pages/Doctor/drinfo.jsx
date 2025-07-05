@@ -101,8 +101,8 @@ function Drinfo() {
           <div className="flex justify-center">
             <img
               // use doctor's profileImg but fix the size and alignment
-              // src={doctor.profileImg}
-              src={Doctor}
+              src={doctor.doctor.profileImg}
+              // src={Doctor}
               alt="Dr. Alaa"
               className="w-1/3 w-full rounded-lg object-cover"
             />
@@ -110,14 +110,14 @@ function Drinfo() {
 
           {/* بيانات الطبيب */}
           <div className="w-2/3 pl-6 font-poppins mt-5">
-            <h2 className="text-2xl font-bold text-gray-800 text-left">Dr. Alaa</h2>
+            <h2 className="text-2xl font-bold text-gray-800 text-left">{`${doctor.doctor.firstName} ${doctor.doctor.lastName}`}</h2>
 
             {/* الدفع */}
             <div className="flex items-center mt-2">
               <span className="text-[#0C7489] text-lg font-bold mr-6 text-left">
                 Payment
               </span>
-              <span className="text-[#0C7489] text-lg font-bold ml-auto">${doctor.appointmentFee}</span>
+              <span className="text-[#0C7489] text-lg font-bold ml-auto">${doctor.doctor.appointmentFee}</span>
             </div>
 
             {/* التقييم */}
