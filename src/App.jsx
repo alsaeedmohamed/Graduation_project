@@ -1,5 +1,5 @@
 // App.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
 import Header from './components/Header';
@@ -38,24 +38,39 @@ import AddCardPage from './pages/Appointment/addcardpage';
 import Appointment from './pages/Appointment/appointment';
 import Appointments from './pages/Appointment/appointments';
 
-
-
-
-
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // حالة تسجيل الدخول
+  // const [isLoggedIn, setIsLoggedIn] = useState(false); // حالة تسجيل الدخول
+  //
+  // const handleLogin = () => {
+  //   setIsLoggedIn(true);
+  // };
+    const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    // Check sessionStorage on initial load
+    return sessionStorage.getItem('isLoggedIn') === 'true';
+  });
+
+  // Update sessionStorage when isLoggedIn changes
+  useEffect(() => {
+    sessionStorage.setItem('isLoggedIn', isLoggedIn.toString());
+  }, [isLoggedIn]);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    sessionStorage.removeItem('isLoggedIn');
+  };
+  
 
   return (
     <Router>
       <div className="bg-[#f6fbfc] min-h-screen">
         {/* Navbar login */}
-        {isLoggedIn ? <LoggedInNavbar /> : <Header />}
+        {/* {isLoggedIn ? <LoggedInNavbar /> : <Header />} */}
+        {isLoggedIn ? <LoggedInNavbar onLogout={handleLogout} /> : <Header />}
 
         <main style={{ minHeight: "80vh" }}>
           <Routes>

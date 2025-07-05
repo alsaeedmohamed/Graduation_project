@@ -144,7 +144,7 @@ function Drinfo() {
         },
         { withCredentials: true },
       );
-      // console.log(response.data.data);
+      console.log(response.data.data);
       const appointmentId = response.data.data._id
       if (response.status === 201) {
           // const res = await axios.post(`http://localhost:4000/api/v1/appointments/${appointmentId}/pay`,{}, {withCredentials: true})

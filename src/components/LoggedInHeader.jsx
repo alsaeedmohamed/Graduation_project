@@ -14,11 +14,12 @@ import account from '../images/account.svg';
 import world from '../images/world.svg';
 import nonotification from '../images/nonotification.svg';
 
-const LoggedInNavbar = () => {
+const LoggedInNavbar = ({ onLogout }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isNotficationsOpen, setIsNotficationsOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activeButton, setActiveButton] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const toggleSettings = () => {
@@ -36,26 +37,59 @@ const LoggedInNavbar = () => {
     setActiveButton(button);
   };
 
+  // const handleLogout = async () => {
+  //   try {
+  //     // إرسال طلب POST للـ API مع withCredentials
+  //     // await axios.get('http://localhost:4000/api/v1/auth/logout', {
+  //     await axios.get('https://neurogurard-api.onrender.com/api/v1/auth/logout', {
+  //       // headers: {
+  //       //   Authorization: `Bearer ${localStorage.getItem('token')}`
+  //       // },
+  //       withCredentials: true,
+  //     });
+  //
+  //     // لو الطلب نجح، احذف التوكن وانقلني لصفحة الـ SignInForm
+  //     // localStorage.removeItem('token');
+  //     navigate('/login'); // هنا بيرجع للـ Header العادي
+  //     setIsSettingsOpen(false);
+  //   } catch (error) {
+  //     // لو حصل خطأ، اطبع الخطأ في الكونسول واحذف التوكن وانقلني بردو
+  //     console.error('Logout failed:', error);
+  //     // localStorage.removeItem('token');
+  //     navigate('/login'); // هنا بيرجع للـ Header العادي
+  //     setIsSettingsOpen(false);
+  //   }
+  // };
   const handleLogout = async () => {
+    setLoading(true); // تشغيل التحميل
     try {
-      // إرسال طلب POST للـ API مع withCredentials
-      await axios.get('http://localhost:4000/api/v1/auth/logout', {
-        // headers: {
-        //   Authorization: `Bearer ${localStorage.getItem('token')}`
-        // },
+      // إرسال طلب GET للـ API مع withCredentials
+      await axios.get('https://neuroguard-api.onrender.com/api/v1/auth/logout', {
         withCredentials: true,
       });
 
-      // لو الطلب نجح، احذف التوكن وانقلني لصفحة الـ SignInForm
-      localStorage.removeItem('token');
-      navigate('/login'); // هنا بيرجع للـ Header العادي
+      // لو الطلب نجح، استدعي onLogout لتحديث حالة المصادقة في App.jsx
+      if (onLogout) {
+        onLogout(); // هذا بيخلي isLoggedIn = false في App.jsx
+      }
+
+      // إغلاق قائمة الإعدادات
       setIsSettingsOpen(false);
+      
+      // انتقال لصفحة تسجيل الدخول
+      navigate('/login');
     } catch (error) {
-      // لو حصل خطأ، اطبع الخطأ في الكونسول واحذف التوكن وانقلني بردو
+      // لو حصل خطأ، لسه نعمل logout من الـ frontend
       console.error('Logout failed:', error);
-      localStorage.removeItem('token');
-      navigate('/login'); // هنا بيرجع للـ Header العادي
+      
+      if (onLogout) {
+        onLogout(); // هذا بيخلي isLoggedIn = false في App.jsx
+      }
+      
       setIsSettingsOpen(false);
+      navigate('/login');
+    } finally {
+      setLoading(false); // إيقاف التحميل
     }
   };
 
@@ -245,6 +279,7 @@ const LoggedInNavbar = () => {
 
           {/* Profile Picture */}
           <img
+            // src={user.profileImg}
             src={profile}
             alt="Profile Icon"
             className="h-12 w-12 rounded-full border border-gray-300 hover:shadow-md cursor-pointer"
