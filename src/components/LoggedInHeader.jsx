@@ -108,6 +108,7 @@ const LoggedInNavbar = ({ user, onLogout }) => {
             <li>
               <Link
                 to="/"
+                // to="/doctors/home" for doctors different home page with appointments and patients
                 onClick={() => handleButtonClick("home")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "home" ? "bg-[#095b6a] text-white" : "text-gray-800"
@@ -130,6 +131,7 @@ const LoggedInNavbar = ({ user, onLogout }) => {
             <li>
               <Link
                 to="/doctors"
+                // to="/appointments" for doctors get appointments not doctors -> then patient report 
                 onClick={() => handleButtonClick("findDoctors")}
                 className={`px-4 py-2 rounded transition duration-200 text-base ${
                   activeButton === "findDoctors" ? "bg-[#095b6a] text-white" : "text-gray-800"

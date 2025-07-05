@@ -52,6 +52,8 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
         }
         // Redirect لصفحة HomePatient بعد النجاح
         navigate("/");
+        // if (user.role === "PATIENT") navigate('/')
+        // else if (user.role === "DOCTOR") navigate('/doctors/home')
       }
     } catch (err) {
       setError(err.response?.data?.message || "حدث خطأ أثناء تسجيل الدخول.");
