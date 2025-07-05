@@ -10,123 +10,201 @@ function Drinfo() {
   const [doctor, setDoctor] = useState({}); // Store doctors data from API
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [availableHours, setAvailableHours] = useState([]); // Store available hours for selected date
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const times = ["10:00 AM", "11:00 AM", "12:00 PM"];
-  const dates = ["Sun 4", "Mon 5", "Tue 6"];
-
-  const handleNavigate = () => {
-    navigate("/payment");
+  // Generate 7 days from today
+  const generateDates = () => {
+    const dates = [];
+    const today = new Date();
+    
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      
+      const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const dayName = dayNames[date.getDay()];
+      const dayNumber = date.getDate();
+      const fullDate = date.toISOString().split('T')[0]; // Format: 2025-07-05
+      
+      dates.push({
+        display: `${dayName} ${dayNumber}`,
+        fullDate: fullDate,
+        dateObj: date
+      });
+    }
+    
+    return dates;
   };
 
-  // get the doctor id state from the previos page "find doctors"
+  const dates = generateDates();
+
+  // const handleNavigate = () => {
+  //   if (selectedDate && selectedTime) {
+  //     navigate("/payment", {
+  //       state: {
+  //         doctorId: doctorId,
+  //         selectedDate: selectedDate,
+  //         selectedTime: selectedTime,
+  //         appointmentDateTime: `${selectedDate}T${selectedTime}+03:00`
+  //       }
+  //     });
+  //   } else {
+  //     alert("Please select both date and time");
+  //   }
+  // };
+
+  // get the doctor id state from the previous page "find doctors"
   const location = useLocation();
-  const doctorId = location.state?.id;
+  const doc = location.state?.doctor;
 
   useEffect(() => {
-    // get this dector request
-    const getDoctor = async () => {
-      try {
-        const response = await axios.get(`https://neuroguard-api.onrender.com/api/v1/doctors/${doctorId}`)
-        // const response = await axios.get(`http://localhost:4000/api/v1/doctors/${doctorId}`)
-        const doctor = response.data.data
-        // console.log(doctor)
-        // doctor object -> doctor.doctor & doctor.availabeHours
-        setDoctor(doctor)
+  if (doc) setDoctor(doc)
+  }, [doctor]);
 
-        // get the time available for today from the get single doctor request
-        const scheduleForToday = await doctor.availabeHours;
-        console.log(scheduleForToday)
-
-        // convert the scheule object { start: "17:00" , end: "18:00" } to array with start times only [ "17:00", ....]
-        const hours = scheduleForToday.map(hour => hour.start.split(" ")[1])
-        console.log(hours)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    getDoctor()
-  }, []);
-
+  // useEffect(() => {
+  //   // get this doctor request
+  //   const getDoctor = async () => {
+  //     try {
+  //       // const response = await axios.get(`https://neuroguard-api.onrender.com/api/v1/doctors/${doctorId}`)
+  //       // // const response = await axios.get(`http://localhost:4000/api/v1/doctors/${doctorId}`)
+  //       // const doctor = response.data.data.doctor
+  //       // setDoctor(doctor)
+  //       // // console.log(doctor)
+  //
+  //       // Automatically select today's date and load its schedule
+  //       const today = dates[0];
+  //       setSelectedDate(today.fullDate);
+  //       await getSchedule(doctorId, today.fullDate);
+  //
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+  //   
+  //   if (doctor) {
+  //     getDoctor()
+  //   }
+  // }, [doctorId]);
 
   // get times array for specific date -> date like "2025-04-12"
   const getSchedule = async (docId, date) => {
+    if (!docId || !date) return;
+    
+    setLoading(true);
     try {
       const response = await axios.get(
         `https://neuroguard-api.onrender.com/api/v1/doctors/${docId}/schedule/${date}`,
+        // `http://localhost:4000/api/v1/doctors/${docId}/schedule/${date}`,
       );
-      const availabe = response.data.data.availabeHours;
-      console.log(availabe);
+      const available = response.data.data.availabeHours;
+      console.log('Available hours for', date, ':', available);
 
       // convert the start end schedule object to array with start times only
-      const hours = availabe.map(hour => hour.start.split(" ")[1])
-      console.log(hours)
+      const hours = available.map(hour => {
+        // Extract time from format like "2025-07-05 17:00" -> "17:00"
+        const timeStr = hour.start.split(" ")[1];
+        return timeStr;
+      });
+      
+      setAvailableHours(hours);
+      setSelectedTime(null); // Reset selected time when date changes
+      
     } catch (error) {
-      console.log(error);
+      console.log('Error getting schedule:', error);
+      setAvailableHours([]);
+    } finally {
+      setLoading(false);
     }
   };
-  // getSchedule(doctorId, "2025-07-05");
-  
-  // book appointment with doctor id and time -> schema like 
-  // "2025-05-22T11:00+03:00" ==> date: 2025-05-22 | time: T11:00:00 | timeZone: +03:00
-  const bookAppointment = async (docId, time) => {
+
+  // Handle date selection
+  const handleDateSelect = async (date) => {
+    setSelectedDate(date.fullDate);
+    await getSchedule(doctor._id, date.fullDate);
+  };
+
+  // book appointment with doctor id and time
+  // const bookAppointment = async (docId, time) => {
+  const bookAppointment = async () => {
+        //  console.log({
+        //   doctorId: doctorId,
+        //   selectedDate: selectedDate,
+        //   selectedTime: selectedTime,
+        //   appointmentDateTime: `${selectedDate}T${selectedTime}+03:00`
+        // })
     try {
       const response = await axios.post(
         "https://neuroguard-api.onrender.com/api/v1/appointments/",
+        // "http://localhost:4000/api/v1/appointments/",
         {
-          doctorId: docId, 
-          startTime: time,
+          doctorId: doctor._id, 
+          startTime: `${selectedDate}T${selectedTime}+03:00` //time,
         },
         { withCredentials: true },
       );
-      console.log(response.data.data);
+      // console.log(response.data.data);
+      const appointmentId = response.data.data._id
+      if (response.status === 201) {
+          // const res = await axios.post(`http://localhost:4000/api/v1/appointments/${appointmentId}/pay`,{}, {withCredentials: true})
+        const res = await axios.post(`https://neuroguard-api.onrender.com/api/v1/appointments/${appointmentId}/pay`,{}, {withCredentials: true})
+        // console.log(res.data.data)
+        const url = res.data.data.url;
+        // console.log(url)
+        if (res.status === 200) window.location.href = url;
+      }
     } catch (error) {
       console.log(error);
     }
   };
-  
-  // get time and date from the select options and update
-  const date = "2025-07-03"
-  const time = "17:00"
-  const dateTime = `${date}T${time}+03:00` // date: 2025-05-22 || time: T11:00:00  || timeZone: +03:00
-  console.log(dateTime)
-  // bookAppointment(doctorId, dateTime)
+
+  // Format time for display (convert 24h to 12h format)
+  const formatTime = (time24) => {
+    const [hours, minutes] = time24.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
+  };
 
   return (
     <div>
-      {/* باقي محتوى الصفحة */}
+      {/* Doctor Info Section */}
       <div className="min-h-screen flex justify-center items-center">
         <div className="rounded-lg flex items-start max-w-4xl p-6">
-          {/* صورة الطبيب */}
+          {/* Doctor Image */}
           <div className="flex justify-center">
             <img
-              // use doctor's profileImg but fix the size and alignment
-              src={doctor.doctor.profileImg}
-              // src={Doctor}
-              alt="Dr. Alaa"
+              src={doctor?.profileImg || Doctor}
+              alt="Doctor"
               className="w-1/3 w-full rounded-lg object-cover"
             />
           </div>
 
-          {/* بيانات الطبيب */}
+          {/* Doctor Details */}
           <div className="w-2/3 pl-6 font-poppins mt-5">
-            <h2 className="text-2xl font-bold text-gray-800 text-left">{`${doctor.doctor.firstName} ${doctor.doctor.lastName}`}</h2>
+            <h2 className="text-2xl font-bold text-gray-800 text-left">
+              {doctor ? `${doctor.firstName} ${doctor.lastName}` : 'Loading...'}
+            </h2>
 
-            {/* الدفع */}
+            {/* Payment */}
             <div className="flex items-center mt-2">
               <span className="text-[#0C7489] text-lg font-bold mr-6 text-left">
                 Payment
               </span>
-              <span className="text-[#0C7489] text-lg font-bold ml-auto">${doctor.doctor.appointmentFee}</span>
+              <span className="text-[#0C7489] text-lg font-bold ml-auto">
+                ${doctor?.appointmentFee || 0}
+              </span>
             </div>
 
-            {/* التقييم */}
+            {/* Rating */}
             <div className="flex items-center mt-2">
               <span className="text-gray-600 text-sm font-medium mr-2 ml-auto">4.8</span>
               <span className="text-yellow-500">⭐️</span>
             </div>
 
-            {/* التفاصيل */}
+            {/* Details */}
             <div className="mt-4">
               <h3 className="text-lg font-semibold text-gray-800 mb-2 text-left">Details</h3>
               <p className="text-gray-400 text-sm leading-relaxed text-left">
@@ -141,54 +219,75 @@ function Drinfo() {
         </div>
       </div>
 
-      {/* Working Hours Section */}
+      {/* Date Section */}
       <div className="flex flex-col items-center py-10 px-5">
         <div className="w-full pr-[40px] pl-[40px]">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold text-gray-800">Working Hours</h2>
-            <button className="text-[#0C7489] text-sm font-medium">See all</button>
+            <h2 className="text-lg font-bold text-gray-800">Select Date</h2>
           </div>
-          <div className="flex gap-4">
-            {times.map((time, index) => (
+          <div className="flex gap-4 overflow-x-auto">
+            {dates.map((date, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedTime(time)}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium ${
-                  selectedTime === time
+                onClick={() => handleDateSelect(date)}
+                className={`flex-shrink-0 py-2 px-4 rounded-lg text-sm font-medium ${
+                  selectedDate === date.fullDate
                     ? "bg-[#0C7489] text-white"
                     : "bg-white text-gray-800 border"
                 }`}
               >
-                {time}
+                {date.display}
               </button>
             ))}
           </div>
         </div>
 
-        {/* Date Section */}
+        {/* Working Hours Section */}
         <div className="w-full mt-6 pr-[40px] pl-[40px]">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-lg font-bold text-gray-800">Date</h2>
-            <button className="text-[#0C7489] text-sm font-medium">See all</button>
+            <h2 className="text-lg font-bold text-gray-800">Available Hours</h2>
+            {selectedDate && (
+              <span className="text-sm text-gray-500">
+                {dates.find(d => d.fullDate === selectedDate)?.display}
+              </span>
+            )}
           </div>
-          <div className="flex gap-4">
-            {dates.map((date, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedDate(date)}
-                className={`flex-1 w-[500px] py-2 rounded-lg text-sm font-medium ${
-                  selectedDate === date
-                    ? "bg-[#0C7489] text-white"
-                    : "bg-white text-gray-800 border"
-                }`}
-              >
-                {date}
-              </button>
-            ))}
-          </div>
+          
+          {loading ? (
+            <div className="text-center py-4">
+              <span className="text-gray-500">Loading available hours...</span>
+            </div>
+          ) : availableHours.length > 0 ? (
+            <div className="grid grid-cols-3 gap-4">
+              {availableHours.map((time, index) => (
+                <button
+                  key={index}
+                  onClick={() => setSelectedTime(time)}
+                  className={`py-2 rounded-lg text-sm font-medium ${
+                    selectedTime === time
+                      ? "bg-[#0C7489] text-white"
+                      : "bg-white text-gray-800 border"
+                  }`}
+                >
+                  {formatTime(time)}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-4">
+              <span className="text-gray-500">No available hours for this date</span>
+            </div>
+          )}
+          
           <button
-            onClick={handleNavigate}
-            className="mt-8 w-full bg-[#0C7489] h-[59px] text-white py-2 px-4 rounded-lg hover:bg-[#065a67] transition duration-300"
+            onClick={bookAppointment}
+            // onClick={handleNavigate}
+            disabled={!selectedDate || !selectedTime}
+            className={`mt-8 w-full h-[59px] text-white py-2 px-4 rounded-lg transition duration-300 ${
+              selectedDate && selectedTime
+                ? "bg-[#0C7489] hover:bg-[#065a67]"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
           >
             Book Appointment
           </button>
