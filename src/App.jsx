@@ -40,37 +40,49 @@ import Appointments from './pages/Appointment/appointments';
 
 function App() {
   const [uploadedImage, setUploadedImage] = useState(null);
-  // const [isLoggedIn, setIsLoggedIn] = useState(false); // حالة تسجيل الدخول
-  //
-  // const handleLogin = () => {
-  //   setIsLoggedIn(true);
-  // };
-    const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    // Check sessionStorage on initial load
+  const [user, setUser] = useState(() => {
+    const savedUser = sessionStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
+  
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
     return sessionStorage.getItem('isLoggedIn') === 'true';
   });
-
+  
   // Update sessionStorage when isLoggedIn changes
   useEffect(() => {
     sessionStorage.setItem('isLoggedIn', isLoggedIn.toString());
   }, [isLoggedIn]);
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
+  // Update sessionStorage when user changes
+  useEffect(() => {
+    if (user) {
+      sessionStorage.setItem('user', JSON.stringify(user));
+    } else {
+      sessionStorage.removeItem('user');
+    }
+  }, [user]);
+
+  const handleLogin = (userData) => {
+    setUser(userData); // Store user data
+    setIsLoggedIn(true); // Set login state
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    setUser(null); // Clear user data
+    setIsLoggedIn(false); // Set logout state
     sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('user');
   };
   
-
   return (
     <Router>
       <div className="bg-[#f6fbfc] min-h-screen">
-        {/* Navbar login */}
-        {/* {isLoggedIn ? <LoggedInNavbar /> : <Header />} */}
-        {isLoggedIn ? <LoggedInNavbar onLogout={handleLogout} /> : <Header />}
+        {isLoggedIn ? (
+          <LoggedInNavbar user={user} onLogout={handleLogout} />
+        ) : (
+          <Header />
+        )}
 
         <main style={{ minHeight: "80vh" }}>
           <Routes>

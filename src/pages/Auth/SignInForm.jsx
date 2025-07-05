@@ -43,12 +43,12 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
         withCredentials: true,
       });
 
-      console.log(response.status)
 
       if (response.status === 200) {
+        const user = response.data.data
         // استدعاء onLogin لتغيير حالة isLoggedIn في App.jsx
         if (onLogin) {
-          onLogin(); // ده بيغير isLoggedIn لـ true
+          onLogin(user); // ده بيغير isLoggedIn لـ true
         }
         // Redirect لصفحة HomePatient بعد النجاح
         navigate("/");
