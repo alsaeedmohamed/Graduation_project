@@ -36,6 +36,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
 
     try {
       const response = await axios.post("https://neuroguard-api.onrender.com/api/v1/auth/login", {
+      // const response = await axios.post("http://localhost:4000/api/v1/auth/login", {
         email,
         password,
       }, {
@@ -137,7 +138,7 @@ function SignInForm({ onLogin }) { // استقبال onLogin كـ prop
             <button
               type="button"
               className="w-full flex items-center justify-center mt-4 py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-100"
-              onClick={() => window.location.href = 'http://localhost:4000/api/v1/auth/google'}
+              onClick={() => window.location.href = 'https://https://neuroguard-api.onrender.com/api/v1/auth/google'}
             >
               <FaGoogle className="mr-2 text-[#000000]" />
               Continue with Google
